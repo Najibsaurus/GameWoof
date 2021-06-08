@@ -14,9 +14,27 @@ class GameViewModel {
     
     let cellGameIdentifier = "gameListIdentifier"
     let gameCellnib = "GameCell"
-    let urlGame = "https://api.rawg.io/api/games"
-    let urlSearch  = "https://api.rawg.io/api/games?search="
-    let urlDetail = "https://api.rawg.io/api/games/"
+    let apiKey = "413a5a5d6ced4c17bd766261ffd25883"
+    
+
+    var urlGame : String {
+           get {
+            return "https://api.rawg.io/api/games?key=\(apiKey)"
+           }
+    }
+    
+    var urlSearch : String {
+           get {
+            return "https://api.rawg.io/api/games?search="
+           }
+    }
+    
+    var urlDetail : String {
+           get {
+            return "https://api.rawg.io/api/games/"
+           }
+    }
+    
     let dummyImage = "https://dummyimage.com/90x90/000/fff"
     let avatar = "https://d17ivq9b7rppb3.cloudfront.net/small/avatar/201905171011432535d9edbd268e421db5dc9a8f23256e.png"
     let name = "Najib Abdillah"
@@ -45,7 +63,7 @@ class GameViewModel {
     
     func searchGame(Game: String){
         
-        guard let urlString = "\(urlSearch)\(Game)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
+        guard let urlString = "\(urlSearch)\(Game)?&key=\(apiKey)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         AF.request(urlString).responseDecodable(of: CallGame.self){ response in
             switch response.result{
              case .success(_):
@@ -62,7 +80,7 @@ class GameViewModel {
     
     func DetailGame(idGame: Int) {
     
-        guard let urlString = "\(urlDetail)\(idGame)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
+        guard let urlString = "\(urlDetail)\(idGame)?key=\(apiKey)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         AF.request(urlString).responseDecodable(of: DetailCall.self){ response in
               switch response.result{
               case .success(_):
