@@ -25,12 +25,13 @@ class GameDetailViewController: UIViewController {
     var favoriteState = false
 
 
-    var game: Results?
+    var game: GameModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         gameViewModel.delegate = self
         setupUI()
-        gameViewModel.DetailGame(idGame: game?.id ?? 1)
+        gameViewModel.showDetail(idGame: game?.id ?? 1)
         
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(favoriteGame))
         doubleTap.numberOfTapsRequired = 2
@@ -46,8 +47,9 @@ class GameDetailViewController: UIViewController {
     
     @objc func unFavoriteGame(){
         if favoriteState == true {
-            favoriteViewModel.unFavorite(id:(game?.id)!)
+            favoriteViewModel.unFavorite(game: game!)
             favoriteState = favoriteViewModel.findById(id: (game?.id)!)
+
             favoriteImageView.isHidden = !favoriteState
         }
     }
@@ -81,6 +83,11 @@ class GameDetailViewController: UIViewController {
             spinner.hidesWhenStopped = true
         }
     }
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }
 
@@ -96,6 +103,10 @@ func setHTMLFromString(htmlText: String, viewModel: GameViewModel)-> NSAttribute
 }
 
 extension GameDetailViewController: GameViewModelDelegate {
+    func errorData(err: Error) {
+        showAlert(title: "Error", message: err.localizedDescription)
+    }
+    
     func completedFetchGame() {
         return
     }

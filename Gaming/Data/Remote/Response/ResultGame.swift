@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct Results: Decodable {
+struct ResultGame: Decodable {
     let id: Int?
     let backgroundImage: String?
     let name: String?

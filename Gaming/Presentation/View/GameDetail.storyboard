@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ISN-h2-wGr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ISN-h2-wGr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,15 +29,15 @@
                                                     <constraint firstAttribute="height" constant="216" id="n8j-MQ-c9v"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQM-P9-Q2H">
-                                                <rect key="frame" x="8" y="232" width="398" height="33.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pQM-P9-Q2H">
+                                                <rect key="frame" x="8" y="232" width="398" height="30"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aCQ-Ma-suZ">
-                                                <rect key="frame" x="8" y="275.5" width="398" height="30"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <rect key="frame" x="8" y="272" width="398" height="30"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content=" ">
                                                         <attributes>
@@ -47,14 +49,14 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9SG-Ql-7oD">
-                                                <rect key="frame" x="348" y="8" width="50" height="50"/>
+                                                <rect key="frame" x="348" y="7.5" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="s6W-GC-xSf"/>
                                                     <constraint firstAttribute="width" constant="50" id="wTM-79-MdY"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="pQM-P9-Q2H" firstAttribute="top" secondItem="pn5-S2-CjN" secondAttribute="bottom" constant="16" id="0Ul-Q1-BmO"/>
                                             <constraint firstAttribute="trailing" secondItem="pQM-P9-Q2H" secondAttribute="trailing" constant="8" id="6QA-VI-bAJ"/>
@@ -71,7 +73,7 @@
                                     </view>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="aoe-hQ-ILE">
                                         <rect key="frame" x="188.5" y="390.5" width="37" height="37"/>
-                                        <color key="color" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="color" systemColor="systemBlueColor"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>
@@ -86,14 +88,14 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="TbP-WI-bq1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TbP-WI-bq1" firstAttribute="trailing" secondItem="U0z-wr-u6A" secondAttribute="trailing" id="BoK-b0-AvU"/>
                             <constraint firstItem="U0z-wr-u6A" firstAttribute="bottom" secondItem="TbP-WI-bq1" secondAttribute="bottom" id="TqE-Ga-3c1"/>
                             <constraint firstItem="U0z-wr-u6A" firstAttribute="leading" secondItem="TbP-WI-bq1" secondAttribute="leading" id="g8E-tK-hAG"/>
                             <constraint firstItem="U0z-wr-u6A" firstAttribute="top" secondItem="TbP-WI-bq1" secondAttribute="top" id="igL-PL-lXc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="TbP-WI-bq1"/>
                     </view>
                     <connections>
                         <outlet property="bannerImage" destination="pn5-S2-CjN" id="aRc-A0-TF7"/>
@@ -110,6 +112,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="star.fill" catalog="system" width="64" height="58"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

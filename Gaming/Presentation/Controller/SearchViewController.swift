@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Bond
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
 
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -24,11 +25,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        if searchBar.text!.count > 0 {
-            gameViewModel.searchGame(Game: searchBar.text ?? "")
-            spinnerStart(state: true)
-        }
+       
+        _ = searchBar.reactive.text.observeNext { text in
+            let rplace = text?.replacingOccurrences(of: " ", with: "%20")
+                if rplace!.count > 0 {
+                    self.gameViewModel.searchGame(game: rplace ?? "")
+                    self.spinnerStart(state: true)
+                }
+            }
+    
     }
+    
+
+
+      
+    func goSearch(game: String?){
+        gameViewModel.searchGame(game: game ?? "")
+        spinnerStart(state: true)
+    }
+    
     func setupUI()  {
         tableView.delegate = self
         tableView.dataSource = self
@@ -64,11 +79,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    func showAlert() {
-        let alert = UIAlertController(title: "Not found", message: "Try search another one", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
 
 }
 
@@ -97,14 +107,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension SearchViewController: GameViewModelDelegate {
+    func errorData(err: Error) {
+        showError(text: err.localizedDescription)
+    }
+    
     func completedFetchDetail() {
-        return 
+        return
     }
     
     func completedFetchGame() {
         spinnerStart(state: false)
         if gameViewModel.gameList.count == 0 {
-            showAlert()
+            showError(text: "Try search another one")
         }
         tableView.reloadData()
     }

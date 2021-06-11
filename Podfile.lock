@@ -1,22 +1,56 @@
 PODS:
-  - Alamofire (5.2.2)
-  - Kingfisher (5.14.1):
-    - Kingfisher/Core (= 5.14.1)
-  - Kingfisher/Core (5.14.1)
+  - Alamofire (5.4.3)
+  - Bond (7.8.1):
+    - Differ (~> 1.4)
+    - ReactiveKit (~> 3.14)
+  - Differ (1.4.5)
+  - Kingfisher (6.3.0)
+  - ReactiveKit (3.17.4)
+  - Realm (10.7.7):
+    - Realm/Headers (= 10.7.7)
+  - Realm/Headers (10.7.7)
+  - RealmSwift (10.7.7):
+    - Realm (= 10.7.7)
+  - RxSwift (6.2.0)
+  - Swinject (2.7.1)
+  - SwinjectAutoregistration (2.7.0):
+    - Swinject (~> 2.7)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.1)
-  - Kingfisher (~> 5.0)
+  - Alamofire
+  - Bond
+  - Kingfisher
+  - Realm
+  - RealmSwift
+  - RxSwift
+  - Swinject
+  - SwinjectAutoregistration
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Bond
+    - Differ
     - Kingfisher
+    - ReactiveKit
+    - Realm
+    - RealmSwift
+    - RxSwift
+    - Swinject
+    - SwinjectAutoregistration
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
-  Kingfisher: 8050bc6f7f68cbf3908bd04df7ccbac188f6d6d6
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Bond: 87075c7f20f37ea3e73dc7057fce839787bf46eb
+  Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
+  ReactiveKit: f9f9e079efa39312c597bf1508ef4810d111ce76
+  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
+  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
+  SwinjectAutoregistration: 330f5012642a8b5c89a8a4adb0c5e52df07382c0
 
-PODFILE CHECKSUM: 95fade99881e88d414d4e9bc2ee557a754b85db0
+PODFILE CHECKSUM: 3ffbde231e5a19f89f07ec9768ea2969c9ff6325
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1

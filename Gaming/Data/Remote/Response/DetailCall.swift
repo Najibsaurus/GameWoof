@@ -1,5 +1,5 @@
 //
-//  CallGame.swift
+//  DetailCall.swift
 //  Gaming
 //
 //  Created by Najib on 13/08/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CallGame: Decodable {
-    let count: Int
-    let results: [Results]
+struct DetailCall : Decodable {
+    let id: Int?
+    let description: String?
 }

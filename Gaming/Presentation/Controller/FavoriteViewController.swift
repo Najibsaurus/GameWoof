@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import CoreData
 
-class FavoriteViewController: UIViewController {
+
+class FavoriteViewController: UIViewController, Alerta {
 
     @IBOutlet weak var tableView: UITableView!
     var gameViewModel = GameViewModel()
     var favoriteViewModel = FavoriteViewModel()
-    var resultsController : NSFetchedResultsController<Gaming>?
     
 
     override func viewDidLoad() {
@@ -36,28 +35,31 @@ class FavoriteViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == gameViewModel.gameDetailIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow{
-                let game = favoriteViewModel.resultsController?.object(at: indexPath)
-                let dataSet = Results(id: NSNumber(value: game?.id ?? 0).intValue, backgroundImage: game?.background_image, name:game?.name, released:game?.released,rating:game?.rating)
+                let game = favoriteViewModel.gameList[indexPath.row]
                 let detailVC = segue.destination as? GameDetailViewController
-                detailVC?.game = dataSet
+                detailVC?.game = game
+
             }
         }
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.fetchFavoriteData()
+        }
+    }
 }
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteViewModel.resultsController?.fetchedObjects?.count ?? 0
+        return favoriteViewModel.gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let game = favoriteViewModel.resultsController?.object(at: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: gameViewModel.cellGameIdentifier) as! GameTableViewCell
-        let dataSet = Results(id: NSNumber(value: game?.id ?? 0).intValue, backgroundImage: game?.background_image, name:game?.name, released:game?.released,rating:game?.rating)
-        cell.setData(dataSet, gameViewModel)
-        return cell
+        let game = favoriteViewModel.gameList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: gameViewModel.cellGameIdentifier) as? GameTableViewCell
+        cell?.setData(game, gameViewModel)
+        return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(gameViewModel.defaultRowHeight)
@@ -73,6 +75,10 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension FavoriteViewController: FavoriteViewModelDelegate {
+    func errorData(error: Error) {
+        showError(text: error.localizedDescription)
+    }
+    
     func completedFetchFavorite() {
          tableView.reloadData()
     }

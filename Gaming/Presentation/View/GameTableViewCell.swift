@@ -16,7 +16,7 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var releaseTitle: UILabel!
     @IBOutlet weak var ratingTitle: UILabel!
     
-    var game: Results?
+    var game: GameModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,11 +26,11 @@ class GameTableViewCell: UITableViewCell {
       
     }
 
-    func setData(_ game: Results, _ gameVieModel: GameViewModel)  {
+    func setData(_ game: GameModel, _ gameVieModel: GameViewModel)  {
         
         self.game = game
-        let imageUrl = URL(string: game.backgroundImage ?? gameVieModel.dummyImage)
-        let rating = game.rating ?? 0.0
+        let imageUrl = URL(string: game.backgroundImage )
+        let rating = game.rating
         thumbnailImage.kf.indicatorType = .activity
         thumbnailImage.kf.setImage(with: imageUrl)
         gameTitle.text = game.name

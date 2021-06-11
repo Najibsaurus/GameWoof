@@ -5,7 +5,13 @@ target 'Gaming' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   # Pods for Gaming
-  pod 'Alamofire', '~> 5.1'
-  pod 'Kingfisher', '~> 5.0'
+  pod 'Kingfisher'
+  pod 'RealmSwift'
+  pod 'Realm'
+  pod 'Alamofire'
+  pod 'Bond'
+  pod 'RxSwift'
+  pod 'Swinject'
+  pod 'SwinjectAutoregistration'
 
 end

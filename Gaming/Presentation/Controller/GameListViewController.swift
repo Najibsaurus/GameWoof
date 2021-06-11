@@ -9,10 +9,12 @@
 import UIKit
 import Kingfisher
 
-class GameListViewController: UIViewController {
+class GameListViewController: UIViewController,Alerta {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    
     
     var gameViewModel = GameViewModel()
     
@@ -37,7 +39,7 @@ class GameListViewController: UIViewController {
     }
     
     func getDataGame()  {
-        gameViewModel.fetchGameData()
+        gameViewModel.fetchDataGame()
         spinnerStart(state: true)
     }
     
@@ -89,6 +91,10 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension GameListViewController: GameViewModelDelegate {
+    func errorData(err: Error) {
+        showError(text: err.localizedDescription) 
+    }
+    
     func completedFetchDetail() {
         return
     }
