@@ -34,9 +34,9 @@ class NetworkService: NetworkServiceProtocol {
         }
         AF.request(url) { $0.timeoutInterval = 5 }.validate().responseDecodable(of: T.self) { response in
             switch response.result {
-                case .success(let users):
+            case .success(let users):
                     completion(.success(users))
-                case .failure(let error):
+            case .failure(let error):
                     completion(.failure(error as NSError))
             }
         }

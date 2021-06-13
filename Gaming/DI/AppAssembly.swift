@@ -11,7 +11,7 @@ import Swinject
 class AppAssembly {
     
     private let container = Container()
-    let assembler : Assembler
+    let assembler: Assembler
     
     init() {
         assembler = Assembler([

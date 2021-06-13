@@ -21,5 +21,3 @@ import RealmSwift
         return "id"
     }
 }
-
-

@@ -106,12 +106,11 @@ extension GameListViewController: GameViewModelDelegate {
     }
     
     func errorData(err: Error) {
-        showError(text: err.localizedDescription) { cancelAction in
+        showError(text: err.localizedDescription) { _ in
             self.spinnerStart(state: false)
-        } retryAction: { action in
+        } retryAction: { _ in
             self.getDataGame()
         }
     }
 
 }
-

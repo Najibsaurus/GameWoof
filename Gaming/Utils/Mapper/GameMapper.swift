@@ -11,8 +11,8 @@ import Foundation
 final class GameMapper {
     
     static func mapGameResponsesToDomains( input gameResponses: [ResultGame]) -> [GameModel] {
-        return gameResponses.map{ result in
-            return GameModel(id: result.id ?? 0, backgroundImage: result.backgroundImage ?? "", name: result.name ?? "" , released: result.released ?? "", rating: result.rating ?? 0.0)
+        return gameResponses.map { result in
+        return GameModel(id: result.id ?? 0, backgroundImage: result.backgroundImage ?? "", name: result.name ?? "", released: result.released ?? "", rating: result.rating ?? 0.0)
         }
     }
 

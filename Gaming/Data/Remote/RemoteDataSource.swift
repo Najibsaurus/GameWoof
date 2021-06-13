@@ -38,10 +38,10 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
             }
             self.networking.getRequest { (result: Result<CallGame, NSError>) in
                 switch result {
-                    case .success(let game):
+                case .success(let game):
                         observer.onNext(game.results)
                         observer.onCompleted()
-                    case .failure(let error):
+                case .failure(let error):
                         observer.onError(error)
                 }
             }
@@ -60,10 +60,10 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
             }
             self.networking.getRequest { (result: Result<DetailCall, NSError>) in
                 switch result {
-                    case .success(let game):
+                case .success(let game):
                         observer.onNext(game)
                         observer.onCompleted()
-                    case .failure(let error):
+                case .failure(let error):
                         observer.onError(error)
                 }
             }
@@ -81,10 +81,10 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
             }
             self.networking.getRequest { (result: Result<CallGame, NSError>) in
                 switch result {
-                    case .success(let game):
+                case .success(let game):
                         observer.onNext(game.results)
                         observer.onCompleted()
-                    case .failure(let error):
+                case .failure(let error):
                         observer.onError(error)
                 }
             }
@@ -93,7 +93,4 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
         }
     }
     
-    
-    
 }
-

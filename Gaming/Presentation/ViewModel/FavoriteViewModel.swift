@@ -38,5 +38,3 @@ protocol FavoriteViewModelDelegate {
     func errorData(error: Error)
     func completedFetchFavorite(gamesList: [GameModel]?)
 }
-
-

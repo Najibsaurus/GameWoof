@@ -93,4 +93,3 @@ extension FavoriteViewController: FavoriteViewModelDelegate {
         showError(text: error.localizedDescription)
     }
 }
-

@@ -15,7 +15,7 @@ class FavoriteViewModelAssembly: Assembly {
         container.register(GameRepository.self) { _ in
             let realm = try? Realm()
             let local = GameStorageDataSource(realm: realm)
-            let network = NetworkService(url: URL(string : Endpoints.Gets.games.url))
+            let network = NetworkService(url: URL(string: Endpoints.Gets.games.url))
             let remote = RemoteDataSource(network: network)
             return GameRepository(local: local, remote: remote)
         }

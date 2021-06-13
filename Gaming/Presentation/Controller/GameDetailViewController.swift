@@ -96,14 +96,13 @@ class GameDetailViewController: UIViewController {
 }
 
 
-func setHTMLFromString(htmlText: String)-> NSAttributedString {
+func setHTMLFromString(htmlText: String) -> NSAttributedString {
     
     let modifiedFont = String(format: GameViewModelStatic.htmlFormat, htmlText)
     guard let attrStr = (try? NSAttributedString(
                             data: modifiedFont.data(using: .unicode, allowLossyConversion: true)!,
                             options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue],
                             documentAttributes: nil)) else { return NSAttributedString() }
-
     return attrStr
  
     
@@ -126,4 +125,3 @@ extension GameDetailViewController: DetailViewModelDelegate {
     
     }
 }
-

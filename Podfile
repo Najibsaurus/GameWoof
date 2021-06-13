@@ -9,10 +9,10 @@ target 'Gaming' do
   pod 'RealmSwift'
   pod 'Realm'
   pod 'Alamofire'
-  pod 'Bond'
-  pod 'RxSwift'
-  pod 'Swinject'
-  pod 'SwinjectAutoregistration'
+  pod 'Bond', :inhibit_warnings => true
+  pod 'RxSwift', :inhibit_warnings => true
+  pod 'Swinject', :inhibit_warnings => true
+  pod 'SwinjectAutoregistration', :inhibit_warnings => true
   
 
 end
