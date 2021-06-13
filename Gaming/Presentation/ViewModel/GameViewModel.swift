@@ -10,27 +10,37 @@ import Foundation
 import RxSwift
 
 
+protocol GameViewModelDelegate {
+    func completedFetchGame(gamesList: [GameModel]?)
+    func errorData(err: Error)
+}
+
+struct GameViewModelStatic {
+    
+    static let cellGameIdentifier = "gameListIdentifier"
+    static let gameCellnib = "GameCell"
+    static let dummyImage = "https://dummyimage.com/90x90/000/fff"
+    static let avatar = "https://d17ivq9b7rppb3.cloudfront.net/small/avatar/201905171011432535d9edbd268e421db5dc9a8f23256e.png"
+    static let name = "Najib Abdillah"
+    static let htmlFormat = "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: 15\">%@</span>"
+    static let defaultRowHeight = 111
+    static let gameDetailIdentifier = "gameDetail"
+
+}
+
+
 class GameViewModel : NSObject {
     
-    let cellGameIdentifier = "gameListIdentifier"
-    let gameCellnib = "GameCell"
-    let gameUseCase : GameUseCase
-    let dummyImage = "https://dummyimage.com/90x90/000/fff"
-    let avatar = "https://d17ivq9b7rppb3.cloudfront.net/small/avatar/201905171011432535d9edbd268e421db5dc9a8f23256e.png"
-    let name = "Najib Abdillah"
-    let htmlFormat = "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: 15\">%@</span>"
-    let defaultRowHeight = 111
-    let gameDetailIdentifier = "gameDetail"
-    
-    var delegate: GameViewModelDelegate?
+
+    private var  gameUseCase : GameUseCase
     var gameList = [GameModel]()
     var detailData : DetailModel?
     private let disposeBag = RxSwift.DisposeBag()
-        
+    var delegate: GameViewModelDelegate?
     
     
-    override init() {
-        gameUseCase = Injection.init().providedGame()
+    init(gameUseCase: GameUseCase) {
+        self.gameUseCase = gameUseCase
     }
        
     
@@ -41,41 +51,24 @@ class GameViewModel : NSObject {
         } onError: { error in
             self.delegate?.errorData(err: error)
         } onCompleted: {
-            self.delegate?.completedFetchGame()
+            self.delegate?.completedFetchGame(gamesList: self.gameList)
         }.disposed(by: disposeBag)
         
     }
     
-    func showDetail(idGame: Int) {
-        gameUseCase.getDetail(by: "\(idGame)").observe(on: MainScheduler.instance).subscribe { result in
-            self.detailData = result
-        } onError: { error in
-            self.delegate?.errorData(err: error)
-        } onCompleted: {
-            self.delegate?.completedFetchDetail()
-        }.disposed(by: disposeBag)
-        
-    }
-    
-    
+
     func searchGame(game: String){
         gameUseCase.getSearch(by: game).observe(on: MainScheduler.instance).subscribe { result in
-            self.gameList = result
-        } onError: { error in
-            self.delegate?.errorData(err: error)
-        } onCompleted: {
-            self.delegate?.completedFetchGame()
-        }.disposed(by: disposeBag)
+               self.gameList = result
+           } onError: { error in
+               self.delegate?.errorData(err: error)
+           } onCompleted: {
+            self.delegate?.completedFetchGame(gamesList: self.gameList)
+           }.disposed(by: disposeBag)
   
     }
         
     
-}
-
-protocol GameViewModelDelegate {
-    func completedFetchGame()
-    func completedFetchDetail()
-    func errorData(err: Error)
 }
 
 

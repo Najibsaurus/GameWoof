@@ -17,18 +17,14 @@ protocol GameStorageProtocol {
     
 }
 
-final class GameStorageDataSource : NSObject {
+class GameStorageDataSource : NSObject {
     
     private let realm : Realm?
     
-    private init(realm: Realm?){
+    init(realm: Realm?){
         self.realm = realm
     }
     
-    static let sharedInstance: (Realm?) -> GameStorageDataSource = {
-        realmDatabase in return GameStorageDataSource(realm: realmDatabase)
-
-    }
 }
 
 extension GameStorageDataSource: GameStorageProtocol {
@@ -48,17 +44,22 @@ extension GameStorageDataSource: GameStorageProtocol {
         }
     }
     
-    
-    
-
     func findByID(id: Int) -> Bool {
         return self.realm?.object(ofType: GameEntity.self, forPrimaryKey: "\(id)") != nil
     }
         
     
     func favorite(game: GameEntity) {
-        try! self.realm?.write{
-            self.realm?.create(GameEntity.self, value: game, update: .all)
+        if let realm = self.realm {
+          do {
+            try realm.write {
+                realm.create(GameEntity.self, value: game, update: .all)
+            }
+          } catch {
+            print(DatabaseError.requestFailed)
+          }
+        } else {
+          print(DatabaseError.invalidInstance)
         }
     }
     
@@ -66,12 +67,19 @@ extension GameStorageDataSource: GameStorageProtocol {
         guard let item = self.realm?.object(ofType: GameEntity.self, forPrimaryKey: game.id) else {
             return
         }
-        try! self.realm?.write {
-            self.realm?.delete(item)
+        
+        if let realm = self.realm {
+          do {
+            try realm.write {
+                realm.delete(item)
+            }
+          } catch {
+            print(DatabaseError.requestFailed)
+          }
+        } else {
+          print(DatabaseError.invalidInstance)
         }
     }
-    
-
     
 }
 

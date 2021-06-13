@@ -26,7 +26,7 @@ class GameTableViewCell: UITableViewCell {
       
     }
 
-    func setData(_ game: GameModel, _ gameVieModel: GameViewModel)  {
+    func setData(_ game: GameModel)  {
         
         self.game = game
         let imageUrl = URL(string: game.backgroundImage )

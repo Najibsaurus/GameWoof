@@ -43,13 +43,12 @@ class AboutView: UIView {
 
 extension AboutView {
     
-    func setupValue(gameViewModel: GameViewModel ) {
+    func setupValue(avatarUrl: String, name: String ) {
         
-          let url = URL(string: gameViewModel.avatar)
+          let url = URL(string: avatarUrl)
           logo.kf.indicatorType = .activity
           logo.kf.setImage(with: url)
-          textName.text = gameViewModel.name
-    
+          textName.text = name
     }
       
       func setupUI() {

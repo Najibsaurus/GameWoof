@@ -26,20 +26,13 @@ protocol GameRepositoryProtocol {
 
  final class GameRepository: NSObject {
 
-  typealias GameInstance = (GameStorageDataSource, RemoteDataSource) -> GameRepository
-
-  fileprivate let remote: RemoteDataSource
-  fileprivate let local: GameStorageDataSource
+  private var remote: RemoteDataSource
+  private var local: GameStorageDataSource
     
 
-  private init(local: GameStorageDataSource, remote: RemoteDataSource) {
+  init(local: GameStorageDataSource, remote: RemoteDataSource) {
     self.remote = remote
     self.local = local
-        
-  }
-
-  static let sharedInstance: GameInstance = { localRepo, remoteRepo in
-    return GameRepository(local: localRepo, remote: remoteRepo)
   }
 
     

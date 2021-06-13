@@ -8,38 +8,44 @@
 
 import UIKit
 import Kingfisher
+import Bond
 
-class GameListViewController: UIViewController,Alerta {
+class GameListViewController: UIViewController, Alerta {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    private let assembly = AppAssembly()
+
+    
+    var gameList = [GameModel]()
+    var viewModel : GameViewModel?
     
     
-    
-    var gameViewModel = GameViewModel()
-    
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        viewModel = assembly.assembler.resolver.resolve(GameViewModel.self)
+        viewModel?.delegate = self
         setupUI()
+        getDataGame()
+        
     }
-    
+                  
     func setupUI()  {
+        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: gameViewModel.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: gameViewModel.cellGameIdentifier)
-        gameViewModel.delegate = self
-        getDataGame()
+        tableView.register(UINib(nibName: GameViewModelStatic.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: GameViewModelStatic.cellGameIdentifier)
+        
     }
 
     @IBAction func about(_ sender: UIBarButtonItem) {
         let about = AboutViewController()
-        about.viewModel = gameViewModel
         self.navigationController?.pushViewController(about, animated: true)
     }
     
     func getDataGame()  {
-        gameViewModel.fetchDataGame()
+        viewModel?.fetchDataGame()
         spinnerStart(state: true)
     }
     
@@ -55,9 +61,9 @@ class GameListViewController: UIViewController,Alerta {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == gameViewModel.gameDetailIdentifier {
+        if segue.identifier == GameViewModelStatic.gameDetailIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow{
-                let game = gameViewModel.gameList[indexPath.row]
+                let game = self.gameList[indexPath.row]
                 let detailVC = segue.destination as? GameDetailViewController
                 detailVC?.game = game
 
@@ -69,41 +75,43 @@ class GameListViewController: UIViewController,Alerta {
 
 extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameViewModel.gameList.count
+        return self.gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let game = gameViewModel.gameList[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: gameViewModel.cellGameIdentifier) as? GameTableViewCell
-        cell?.setData(game, gameViewModel)
+        let game = self.gameList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: GameViewModelStatic.cellGameIdentifier) as? GameTableViewCell
+        cell?.setData(game)
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(gameViewModel.defaultRowHeight)
+        return CGFloat(GameViewModelStatic.defaultRowHeight)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: gameViewModel.gameDetailIdentifier, sender: indexPath)
+        performSegue(withIdentifier: GameViewModelStatic.gameDetailIdentifier, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
 
 
+
 extension GameListViewController: GameViewModelDelegate {
+    
+    func completedFetchGame(gamesList: [GameModel]?) {
+        self.gameList = gamesList ?? [GameModel]()
+        self.spinnerStart(state: false)
+        self.tableView.reloadData()
+    }
+    
     func errorData(err: Error) {
-        showError(text: err.localizedDescription) 
+        showError(text: err.localizedDescription) { cancelAction in
+            self.spinnerStart(state: false)
+        } retryAction: { action in
+            self.getDataGame()
+        }
     }
-    
-    func completedFetchDetail() {
-        return
-    }
-    
-    func completedFetchGame() {
-    
-        spinnerStart(state: false)
-        tableView.reloadData()
-    }
-    
+
 }
 

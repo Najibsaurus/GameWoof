@@ -17,18 +17,14 @@ protocol RemoteDataSourceProtocol {
     func getSearch(by name: String) -> Observable<[ResultGame]>
 }
 
-final class RemoteDataSource: NSObject {
+class RemoteDataSource: NSObject {
 
   private var networking : NetworkServiceProtocol
     
-  private init(network: NetworkServiceProtocol){
+    init(network: NetworkServiceProtocol){
         self.networking = network
-  }
-    
- static let sharedInstance: (NetworkServiceProtocol) -> RemoteDataSource = {
-        networking in return RemoteDataSource(network: networking)
-
     }
+    
 }
 
 extension RemoteDataSource: RemoteDataSourceProtocol {

@@ -12,36 +12,44 @@ import UIKit
 class FavoriteViewController: UIViewController, Alerta {
 
     @IBOutlet weak var tableView: UITableView!
-    var gameViewModel = GameViewModel()
-    var favoriteViewModel = FavoriteViewModel()
+  
+    private let assembly = AppAssembly()
+    var gameList = [GameModel]()
+    var viewModel : FavoriteViewModel?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        tableView.register(UINib(nibName: gameViewModel.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: gameViewModel.cellGameIdentifier)
+        viewModel = assembly.assembler.resolver.resolve(FavoriteViewModel.self)
+        viewModel?.delegate = self
+        
+        tableView.register(UINib(nibName: GameViewModelStatic.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: GameViewModelStatic.cellGameIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
-        favoriteViewModel.delegate = self
-        fetchFavoriteData()
+        
+        fetchFavoriteData() 
      
     }
     
     func fetchFavoriteData()  {
-        favoriteViewModel.fetchData()
+        viewModel?.fetchData()
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == gameViewModel.gameDetailIdentifier {
+        if segue.identifier == GameViewModelStatic.gameDetailIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow{
-                let game = favoriteViewModel.gameList[indexPath.row]
+                let game = viewModel?.gameList[indexPath.row]
                 let detailVC = segue.destination as? GameDetailViewController
                 detailVC?.game = game
 
             }
         }
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -50,24 +58,25 @@ class FavoriteViewController: UIViewController, Alerta {
     }
 }
 
+
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteViewModel.gameList.count
+        return self.gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let game = favoriteViewModel.gameList[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: gameViewModel.cellGameIdentifier) as? GameTableViewCell
-        cell?.setData(game, gameViewModel)
+        let game = self.gameList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: GameViewModelStatic.cellGameIdentifier) as? GameTableViewCell
+        cell?.setData(game)
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(gameViewModel.defaultRowHeight)
+        return CGFloat(GameViewModelStatic.defaultRowHeight)
 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: gameViewModel.gameDetailIdentifier, sender: indexPath)
+        performSegue(withIdentifier: GameViewModelStatic.gameDetailIdentifier, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -75,14 +84,13 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension FavoriteViewController: FavoriteViewModelDelegate {
+    func completedFetchFavorite(gamesList: [GameModel]?) {
+        self.gameList = gamesList ?? [GameModel]()
+        tableView.reloadData()
+    }
+    
     func errorData(error: Error) {
         showError(text: error.localizedDescription)
     }
-    
-    func completedFetchFavorite() {
-         tableView.reloadData()
-    }
-    func fetchDataDelegate() {
-        tableView.reloadData()
-    }
 }
+

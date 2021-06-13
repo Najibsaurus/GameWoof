@@ -8,7 +8,7 @@
 
 import Foundation
 import RxSwift
-import UIKit
+
 
 class FavoriteViewModel : NSObject {
  
@@ -17,24 +17,9 @@ class FavoriteViewModel : NSObject {
     var gameList = [GameModel]()
     private let disposeBag = RxSwift.DisposeBag()
     
-    override init() {
-        favoriteUseCase = Injection.init().providedFavorite()
+    init(favoriteUseCase: FavoriteUseCase) {
+        self.favoriteUseCase = favoriteUseCase
     }
-    
-    
-    func addToFavorite(game: GameModel)  {
-        favoriteUseCase.favorite(game: game)
-    }
-    
-    
-    func findById(id: Int) -> Bool {
-        return favoriteUseCase.findById(id: id)
-    }
-    
-    func unFavorite(game: GameModel)  {
-        favoriteUseCase.unFavorite(game: game)
-    }
-    
     
     func fetchData(){
         favoriteUseCase.getFavoriteList().observe(on: MainScheduler.instance).subscribe { result in
@@ -42,7 +27,7 @@ class FavoriteViewModel : NSObject {
         } onError: { error in
             self.delegate?.errorData(error: error)
         } onCompleted: {
-            self.delegate?.completedFetchFavorite()
+            self.delegate?.completedFetchFavorite(gamesList: self.gameList)
         }.disposed(by: disposeBag)
 
     }
@@ -51,8 +36,7 @@ class FavoriteViewModel : NSObject {
  
 protocol FavoriteViewModelDelegate {
     func errorData(error: Error)
-    func completedFetchFavorite()
-    func fetchDataDelegate()
+    func completedFetchFavorite(gamesList: [GameModel]?)
 }
 
 

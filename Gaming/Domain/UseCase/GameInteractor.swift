@@ -11,11 +11,8 @@ import RxSwift
 
 protocol GameUseCase {
     func getRequest() -> Observable<[GameModel]>
-    func getDetail(by id: String) -> Observable<DetailModel>
     func getSearch(by name: String) -> Observable<[GameModel]>
 }
-
-
 class GameInteractor: GameUseCase {
  
     private let repository: GameRepositoryProtocol
@@ -25,11 +22,6 @@ class GameInteractor: GameUseCase {
     
     func getRequest() -> Observable<[GameModel]> {
         return repository.getRequest()
-    }
-    
-    
-    func getDetail(by id: String) -> Observable<DetailModel> {
-        return repository.getDetail(by: id)
     }
     
     func getSearch(by name: String) -> Observable<[GameModel]> {

@@ -1,15 +1,15 @@
 //
-//  GameViewModelAssembly.swift
+//  FavoriteViewModelAssembly.swift
 //  Gaming
 //
 //  Created by Najib Abdillah on 14/06/21.
 //  Copyright © 2021 Najib. All rights reserved.
 //
 
-import RealmSwift
 import Swinject
+import RealmSwift
 
-class GameViewModelAssembly: Assembly {
+class FavoriteViewModelAssembly: Assembly {
     func assemble(container: Container) {
         
         container.register(GameRepository.self) { _ in
@@ -20,10 +20,10 @@ class GameViewModelAssembly: Assembly {
             return GameRepository(local: local, remote: remote)
         }
         
-        container.register(GameViewModel.self) { resolver in
+        container.register(FavoriteViewModel.self) { resolver in
             let repository = resolver.resolve(GameRepository.self)!
-            let gameUseCase = GameInteractor(repository: repository)
-            return GameViewModel(gameUseCase: gameUseCase )
+            let favoriteUseCase = FavoriteInteractor(repository: repository)
+            return FavoriteViewModel(favoriteUseCase: favoriteUseCase )
         }
         
     }

@@ -20,18 +20,22 @@ class GameDetailViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var favoriteImageView: UIImageView!
     
-    var gameViewModel = GameViewModel()
-    var favoriteViewModel = FavoriteViewModel()
-    var favoriteState = false
+    private let assembly = AppAssembly()
 
-
+    var gameDetail = DetailModel?.self
+    var viewModel : DetailViewModel?
     var game: GameModel?
+
+    var favoriteState = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameViewModel.delegate = self
+        viewModel = assembly.assembler.resolver.resolve(DetailViewModel.self)
+        viewModel?.delegate = self
+    
         setupUI()
-        gameViewModel.showDetail(idGame: game?.id ?? 1)
+        viewModel?.showDetail(idGame: game?.id ?? 1)
         
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(favoriteGame))
         doubleTap.numberOfTapsRequired = 2
@@ -40,25 +44,25 @@ class GameDetailViewController: UIViewController {
         let tapUnfavorite = UITapGestureRecognizer(target: self, action: #selector(unFavoriteGame))
         favoriteImageView.addGestureRecognizer(tapUnfavorite)
         
-        favoriteState = favoriteViewModel.findById(id: (game?.id)!)
+        favoriteState = ((viewModel?.findById(id: game!.id)) != false)
+
         
     }
     
     
-    @objc func unFavoriteGame(){
+    @objc func unFavoriteGame() {
         if favoriteState == true {
-            favoriteViewModel.unFavorite(game: game!)
-            favoriteState = favoriteViewModel.findById(id: (game?.id)!)
-
+            viewModel?.unFavorite(game: game!)
+            favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
             favoriteImageView.isHidden = !favoriteState
         }
     }
     
     
-    @objc func favoriteGame(){
+    @objc func favoriteGame() {
         if favoriteState == false {
-            favoriteViewModel.addToFavorite(game: game!)
-            favoriteState = favoriteViewModel.findById(id: (game?.id)!)
+            viewModel?.addToFavorite(game: game!)
+            favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
             favoriteImageView.isHidden = !favoriteState
         }
     }
@@ -69,10 +73,10 @@ class GameDetailViewController: UIViewController {
     }
     
     func setupUI()  {
-        favoriteState = favoriteViewModel.findById(id: (game?.id)!)
+        favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
         favoriteImageView.isHidden = !favoriteState
         spinnerStart(state: true)
-        let imageUrl = URL(string: game?.backgroundImage ?? gameViewModel.dummyImage)
+        let imageUrl = URL(string: game?.backgroundImage ?? GameViewModelStatic.dummyImage)
         bannerImage.kf.setImage(with: imageUrl)
         gameTitle.text = game?.name
         
@@ -92,27 +96,34 @@ class GameDetailViewController: UIViewController {
 }
 
 
-func setHTMLFromString(htmlText: String, viewModel: GameViewModel)-> NSAttributedString {
-    let modifiedFont = String(format: viewModel.htmlFormat, htmlText)
-       let attrStr = try! NSAttributedString(
-           data: modifiedFont.data(using: .unicode, allowLossyConversion: true)!,
-           options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue],
-           documentAttributes: nil)
+func setHTMLFromString(htmlText: String)-> NSAttributedString {
+    
+    let modifiedFont = String(format: GameViewModelStatic.htmlFormat, htmlText)
+    guard let attrStr = (try? NSAttributedString(
+                            data: modifiedFont.data(using: .unicode, allowLossyConversion: true)!,
+                            options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue],
+                            documentAttributes: nil)) else { return NSAttributedString() }
 
-        return attrStr
+    return attrStr
+ 
+    
 }
 
-extension GameDetailViewController: GameViewModelDelegate {
+
+extension GameDetailViewController: DetailViewModelDelegate {
+    func completedFetchDetailGame(game: DetailModel?) {
+        spinnerStart(state: false)
+    
+        gameDescription.attributedText = setHTMLFromString(htmlText: game?.description ?? "")
+    }
+    
+    
     func errorData(err: Error) {
         showAlert(title: "Error", message: err.localizedDescription)
     }
     
-    func completedFetchGame() {
-        return
-    }
-
     func completedFetchDetail() {
-        spinnerStart(state: false)
-        gameDescription.attributedText = setHTMLFromString(htmlText: gameViewModel.detailData?.description ?? "",viewModel: gameViewModel)
+    
     }
 }
+

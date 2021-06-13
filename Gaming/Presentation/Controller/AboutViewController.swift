@@ -9,18 +9,12 @@
 import UIKit
 
 class AboutViewController: UIViewController {
-
-    var viewModel: GameViewModel?{
-        didSet{
-            if let result = viewModel {
-                detail.setupValue(gameViewModel: result)
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        detail.setupValue(avatarUrl: GameViewModelStatic.avatar, name: GameViewModelStatic.name)
+
     }
     var detail : AboutView = {
          let view = AboutView()

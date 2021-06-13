@@ -11,9 +11,6 @@ import RxSwift
 
 protocol FavoriteUseCase {
     func getFavoriteList() -> Observable<[GameModel]>
-    func favorite(game: GameModel)
-    func unFavorite(game: GameModel)
-    func findById(id: Int) -> Bool
 }
 
 class FavoriteInteractor: FavoriteUseCase {
@@ -21,27 +18,11 @@ class FavoriteInteractor: FavoriteUseCase {
         return repository.getFavoriteList()
     }
      
-
     private let repository: GameRepositoryProtocol
     
     required init(repository: GameRepositoryProtocol) {
       self.repository = repository
     }
-    
-    
-    func favorite(game: GameModel) {
-        repository.favorite(game: game)
-    }
-    
-    func unFavorite(game: GameModel) {
-        repository.unFavorite(game: game)
-    }
-    
-    func findById(id: Int) -> Bool {
-        repository.findById(id: id)
-    }
-    
-    
     
     
 }

@@ -15,11 +15,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    var gameViewModel = GameViewModel()
+  
+    private let assembly = AppAssembly()
+
+    
+    var gameList = [GameModel]()
+    var viewModel : GameViewModel?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        viewModel = assembly.assembler.resolver.resolve(GameViewModel.self)
+        viewModel?.delegate = self
         setupUI()
     }
 
@@ -28,9 +36,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
        
         _ = searchBar.reactive.text.observeNext { text in
             let rplace = text?.replacingOccurrences(of: " ", with: "%20")
-                if rplace!.count > 0 {
-                    self.gameViewModel.searchGame(game: rplace ?? "")
-                    self.spinnerStart(state: true)
+            if !rplace!.isEmpty   {
+                    self.goSearch(game: rplace)
                 }
             }
     
@@ -40,15 +47,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
 
       
     func goSearch(game: String?){
-        gameViewModel.searchGame(game: game ?? "")
+        viewModel?.searchGame(game: game ?? "")
         spinnerStart(state: true)
     }
     
     func setupUI()  {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: gameViewModel.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: gameViewModel.cellGameIdentifier)
-        gameViewModel.delegate = self
+        tableView.register(UINib(nibName: GameViewModelStatic.gameCellnib, bundle: Bundle.main), forCellReuseIdentifier: GameViewModelStatic.cellGameIdentifier)
         searchBar.delegate = self
         searchBar.returnKeyType = .search
         spinner.isHidden = true
@@ -68,10 +74,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
     }
     
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == gameViewModel.gameDetailIdentifier {
+        if segue.identifier == GameViewModelStatic.gameDetailIdentifier {
             if let indexPath = tableView.indexPathForSelectedRow{
-                let game = gameViewModel.gameList[indexPath.row]
+                let game = self.gameList[indexPath.row]
                 let detailVC = segue.destination as? GameDetailViewController
                 detailVC?.game = game
 
@@ -85,21 +92,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gameViewModel.gameList.count
+        return self.gameList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let game = gameViewModel.gameList[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: gameViewModel.cellGameIdentifier) as? GameTableViewCell
-        cell?.setData(game, gameViewModel)
+        let game = self.gameList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: GameViewModelStatic.cellGameIdentifier) as? GameTableViewCell
+        cell?.setData(game)
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(gameViewModel.defaultRowHeight)
+        return CGFloat(GameViewModelStatic.defaultRowHeight)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: gameViewModel.gameDetailIdentifier, sender: indexPath)
+        performSegue(withIdentifier: GameViewModelStatic.gameDetailIdentifier, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -107,19 +114,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension SearchViewController: GameViewModelDelegate {
-    func errorData(err: Error) {
-        showError(text: err.localizedDescription)
-    }
-    
-    func completedFetchDetail() {
-        return
-    }
-    
-    func completedFetchGame() {
+    func completedFetchGame(gamesList: [GameModel]?) {
+        self.gameList = gamesList ?? [GameModel]()
         spinnerStart(state: false)
-        if gameViewModel.gameList.count == 0 {
+        if self.gameList.isEmpty {
             showError(text: "Try search another one")
         }
         tableView.reloadData()
     }
+    
+    func errorData(err: Error) {
+        showError(text: err.localizedDescription)
+    }
+    
 }
+

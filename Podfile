@@ -13,5 +13,6 @@ target 'Gaming' do
   pod 'RxSwift'
   pod 'Swinject'
   pod 'SwinjectAutoregistration'
+  
 
 end
