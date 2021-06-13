@@ -20,6 +20,7 @@
 		62F8178C26712C4900538817 /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8178B26712C4900538817 /* APICall.swift */; };
 		62F8178E2672CFAC00538817 /* FavoriteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8178D2672CFAC00538817 /* FavoriteInteractor.swift */; };
 		62F817902672ECBD00538817 /* Alerta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8178F2672ECBC00538817 /* Alerta.swift */; };
+		62F817CF2676728C00538817 /* GameViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F817CE2676728B00538817 /* GameViewModelAssembly.swift */; };
 		DA37323024E4FEA5009CF054 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37322F24E4FEA5009CF054 /* AboutView.swift */; };
 		DA37323224E50076009CF054 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA37323124E50076009CF054 /* AboutViewController.swift */; };
 		DA37323424E503C6009CF054 /* GameDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA37323324E503C6009CF054 /* GameDetail.storyboard */; };
@@ -56,6 +57,7 @@
 		62F8178B26712C4900538817 /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
 		62F8178D2672CFAC00538817 /* FavoriteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteInteractor.swift; sourceTree = "<group>"; };
 		62F8178F2672ECBC00538817 /* Alerta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerta.swift; sourceTree = "<group>"; };
+		62F817CE2676728B00538817 /* GameViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelAssembly.swift; sourceTree = "<group>"; };
 		7D11B15D05FF404B2B433EE8 /* Pods-Gaming.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaming.release.xcconfig"; path = "Target Support Files/Pods-Gaming/Pods-Gaming.release.xcconfig"; sourceTree = "<group>"; };
 		DA37322F24E4FEA5009CF054 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		DA37323124E50076009CF054 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				62F817892670190B00538817 /* Injection.swift */,
+				62F817CE2676728B00538817 /* GameViewModelAssembly.swift */,
 			);
 			path = DI;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				DAB9385F24E4B87F004A288E /* GameListViewController.swift in Sources */,
 				DAB9385B24E4B87F004A288E /* AppDelegate.swift in Sources */,
 				62F81773266F73E200538817 /* GameEntity.swift in Sources */,
+				62F817CF2676728C00538817 /* GameViewModelAssembly.swift in Sources */,
 				62F8178E2672CFAC00538817 /* FavoriteInteractor.swift in Sources */,
 				62F8178A2670190B00538817 /* Injection.swift in Sources */,
 				62F81788267011E400538817 /* GameModel.swift in Sources */,
