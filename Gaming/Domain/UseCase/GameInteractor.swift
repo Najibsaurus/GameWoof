@@ -27,10 +27,4 @@ class GameInteractor: GameUseCase {
     func getSearch(by name: String) -> Observable<[GameModel]> {
         return repository.getSearch(by: name)
     }
-    
-    
-    
-    
-
-    
 }

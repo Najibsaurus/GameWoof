@@ -20,8 +20,6 @@ struct GameViewModelStatic {
     static let cellGameIdentifier = "gameListIdentifier"
     static let gameCellnib = "GameCell"
     static let dummyImage = "https://dummyimage.com/90x90/000/fff"
-    static let avatar = "https://d17ivq9b7rppb3.cloudfront.net/small/avatar/201905171011432535d9edbd268e421db5dc9a8f23256e.png"
-    static let name = "Najib Abdillah"
     static let htmlFormat = "<span style=\"font-family: '-apple-system', 'HelveticaNeue'; font-size: 15\">%@</span>"
     static let defaultRowHeight = 111
     static let gameDetailIdentifier = "gameDetail"

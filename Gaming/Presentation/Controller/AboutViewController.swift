@@ -12,11 +12,12 @@ class AboutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let viewModel = AboutViewModel()
         setupUI()
-        detail.setupValue(avatarUrl: GameViewModelStatic.avatar, name: GameViewModelStatic.name)
+        detail.setupValue(avatarUrl: viewModel.avatar, name: viewModel.name)
 
     }
-    var detail : AboutView = {
+    var detail :AboutView = {
          let view = AboutView()
          view.translatesAutoresizingMaskIntoConstraints = false
          return view

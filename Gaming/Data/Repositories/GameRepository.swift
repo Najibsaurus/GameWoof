@@ -59,10 +59,6 @@ extension GameRepository : GameRepositoryProtocol {
         local.unFavorite(game: game)
     }
     
-    func favorite(game: GameEntity) {
-        local.favorite(game: game)
-    }
-    
     func getSearch(by name: String) -> Observable<[GameModel]> {
         return self.remote.getSearch(by: name).map { GameMapper.mapGameResponsesToDomains(input: $0) }
     }
