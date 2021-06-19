@@ -1,5 +1,5 @@
 language: swift
 osx_image: xcode12.5 
-xcode_project: Gaming.xcodeproj
+xcode_project: Gaming.xcworkspace
 xcode_scheme: Gaming
 xcode_destination: platform=iOS Simulator,OS=14.1,name=iPhone 11 Pro
