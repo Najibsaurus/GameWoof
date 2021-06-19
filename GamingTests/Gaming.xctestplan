@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "28E619EE-5A0B-478E-8145-5857FB20A250",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Gaming.xcodeproj",
+        "identifier" : "625C8E3C267E86830006153F",
+        "name" : "GamingTests"
+      }
+    }
+  ],
+  "version" : 1
+}

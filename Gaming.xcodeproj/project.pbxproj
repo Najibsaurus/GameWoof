@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6216F7E1267E1780000316E0 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6216F7E0267E1780000316E0 /* AboutViewModel.swift */; };
+		625C8E40267E86830006153F /* GamingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625C8E3F267E86830006153F /* GamingTests.swift */; };
 		62F81770266F721F00538817 /* GameStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8176F266F721F00538817 /* GameStorageDataSource.swift */; };
 		62F81773266F73E200538817 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F81772266F73E200538817 /* GameEntity.swift */; };
 		62F81778266FA9E100538817 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F81777266FA9E100538817 /* NetworkService.swift */; };
@@ -48,8 +49,22 @@
 		DAEEFE6F24E5242F008AECC8 /* DetailCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEEFE6E24E5242F008AECC8 /* DetailCall.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		625C8E42267E86840006153F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAB9384F24E4B87F004A288E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAB9385624E4B87F004A288E;
+			remoteInfo = Gaming;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		6216F7E0267E1780000316E0 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
+		625C8E3D267E86830006153F /* GamingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		625C8E3F267E86830006153F /* GamingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingTests.swift; sourceTree = "<group>"; };
+		625C8E41267E86840006153F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		625C8E47267E880A0006153F /* Gaming.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gaming.xctestplan; sourceTree = "<group>"; };
 		62F8176F266F721F00538817 /* GameStorageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageDataSource.swift; sourceTree = "<group>"; };
 		62F81772266F73E200538817 /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
 		62F81777266FA9E100538817 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -95,6 +110,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		625C8E3A267E86830006153F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB9385424E4B87F004A288E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,6 +128,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		625C8E3E267E86830006153F /* GamingTests */ = {
+			isa = PBXGroup;
+			children = (
+				625C8E3F267E86830006153F /* GamingTests.swift */,
+				625C8E47267E880A0006153F /* Gaming.xctestplan */,
+				625C8E41267E86840006153F /* Info.plist */,
+			);
+			path = GamingTests;
+			sourceTree = "<group>";
+		};
 		62F81768266F6C2300538817 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +290,7 @@
 			children = (
 				62F817DB2676BC8D00538817 /* .swiftlint.yml */,
 				DAB9385924E4B87F004A288E /* Gaming */,
+				625C8E3E267E86830006153F /* GamingTests */,
 				DAB9385824E4B87F004A288E /* Products */,
 				7B82282474A63BE576C24307 /* Pods */,
 				DAD092E67B1D9BA2E8B5BF55 /* Frameworks */,
@@ -268,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB9385724E4B87F004A288E /* Gaming.app */,
+				625C8E3D267E86830006153F /* GamingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -342,6 +376,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		625C8E3C267E86830006153F /* GamingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 625C8E46267E86840006153F /* Build configuration list for PBXNativeTarget "GamingTests" */;
+			buildPhases = (
+				625C8E39267E86830006153F /* Sources */,
+				625C8E3A267E86830006153F /* Frameworks */,
+				625C8E3B267E86830006153F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				625C8E43267E86840006153F /* PBXTargetDependency */,
+			);
+			name = GamingTests;
+			productName = GamingTests;
+			productReference = 625C8E3D267E86830006153F /* GamingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DAB9385624E4B87F004A288E /* Gaming */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAB9386D24E4B881004A288E /* Build configuration list for PBXNativeTarget "Gaming" */;
@@ -368,10 +420,14 @@
 		DAB9384F24E4B87F004A288E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = Najib;
 				TargetAttributes = {
+					625C8E3C267E86830006153F = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = DAB9385624E4B87F004A288E;
+					};
 					DAB9385624E4B87F004A288E = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -391,11 +447,19 @@
 			projectRoot = "";
 			targets = (
 				DAB9385624E4B87F004A288E /* Gaming */,
+				625C8E3C267E86830006153F /* GamingTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		625C8E3B267E86830006153F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB9385524E4B87F004A288E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +535,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		625C8E39267E86830006153F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				625C8E40267E86830006153F /* GamingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB9385324E4B87F004A288E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -512,6 +584,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		625C8E43267E86840006153F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAB9385624E4B87F004A288E /* Gaming */;
+			targetProxy = 625C8E42267E86840006153F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		DAB9386224E4B87F004A288E /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -532,6 +612,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		625C8E44267E86840006153F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamingTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indie.GamingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gaming.app/Gaming";
+			};
+			name = Debug;
+		};
+		625C8E45267E86840006153F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamingTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indie.GamingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gaming.app/Gaming";
+			};
+			name = Release;
+		};
 		DAB9386B24E4B881004A288E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -687,6 +807,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		625C8E46267E86840006153F /* Build configuration list for PBXNativeTarget "GamingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				625C8E44267E86840006153F /* Debug */,
+				625C8E45267E86840006153F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DAB9385224E4B87F004A288E /* Build configuration list for PBXProject "Gaming" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
