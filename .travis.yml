@@ -4,4 +4,5 @@ xcode_workspace: Gaming.xcworkspace # path to your xcworkspace file
 xcode_scheme: Gaming
 xcode_destination: platform=iOS Simulator,OS=14.5,name=iPhone 11 Pro
 script: 
- - xcodebuild test -workspace 'Gaming.xcworkspace' -scheme 'Gaming' -destination 'platform=iOS Simulator,OS=14.5,name=iPhone 11 Pro'
+ - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace 'Gaming.xcworkspace' -scheme 'Gaming'  | xcpretty
+
