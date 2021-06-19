@@ -6,8 +6,8 @@ install:
 language: swift
 osx_image: xcode12.5
 xcode_workspace: Gaming.xcworkspace # path to your xcworkspace file
-xcode_scheme: Gaming
+xcode_scheme: GamingTests
 xcode_destination: platform=iOS Simulator,OS=14.1,name=iPhone 11 Pro
 script: 
  - swiftlint
- - xcodebuild test -workspace 'Gaming.xcworkspace' -scheme 'Gaming' -destination 'platform=iOS Simulator,OS=14.1,name=iPhone 11 Pro'
+ - xcodebuild test -workspace 'Gaming.xcworkspace' -scheme 'GamingTests' -destination 'platform=iOS Simulator,OS=14.1,name=iPhone 11 Pro'
