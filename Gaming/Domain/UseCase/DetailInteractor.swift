@@ -36,7 +36,7 @@ class DetailInteractor: DetailUseCase {
     }
     
     func findById(id: Int) -> Bool {
-        repository.findById(id: id)
+        repository.findByIdGame(id: id)
     }
     
     

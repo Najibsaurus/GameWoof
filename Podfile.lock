@@ -6,11 +6,11 @@ PODS:
   - Differ (1.4.5)
   - Kingfisher (6.3.0)
   - ReactiveKit (3.17.4)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
+  - Realm (10.8.0):
+    - Realm/Headers (= 10.8.0)
+  - Realm/Headers (10.8.0)
+  - RealmSwift (10.8.0):
+    - Realm (= 10.8.0)
   - RxSwift (6.2.0)
   - Swinject (2.7.1)
   - SwinjectAutoregistration (2.7.0):
@@ -45,12 +45,12 @@ SPEC CHECKSUMS:
   Differ: 3b6bd78e2b20cc795d9a86f7641d087524e4273e
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   ReactiveKit: f9f9e079efa39312c597bf1508ef4810d111ce76
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  Realm: ad3c5cd762e5a5bc02080fc55aa04a0e43f98575
+  RealmSwift: 316e450478fb01e06ece4438dda42f407c5f51d2
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   SwinjectAutoregistration: 330f5012642a8b5c89a8a4adb0c5e52df07382c0
 
-PODFILE CHECKSUM: 6113e25d344086c708018c1e26b6e05867969bc8
+PODFILE CHECKSUM: fb579349087f414f0d6de22dafc560624a500ded
 
 COCOAPODS: 1.10.1
