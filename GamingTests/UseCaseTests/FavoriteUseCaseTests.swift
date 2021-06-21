@@ -55,13 +55,10 @@ class FavoriteUseCaseTests: XCTestCase {
     }
     
     
-
     private func verifyExecute(_ result: (games: [GameModel]?, error: Error?), expectedUsers: [GameModel]?, isErrorExpected: Bool) {
         XCTAssertEqual(result.games, expectedUsers)
         XCTAssertEqual(result.error != nil, isErrorExpected)
     }
-    
-    
     
     override  func tearDown() {
         repositoryMock = nil
