@@ -11,6 +11,9 @@ import Foundation
 import RxSwift
 
 class GameRepositoryMock: GameRepositoryProtocol {
+    
+
+    
 
     
     var isGameSaved = false
@@ -67,17 +70,20 @@ class GameRepositoryMock: GameRepositoryProtocol {
         }
     }
     
-    func favorite(game: GameModel) {
-        isGameSaved = true
-        
+    
+    func findByIdGame(id: Int) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let games = self.isGameFound
+            observer.onNext(games)
+          return Disposables.create()
+        }
     }
     
-    func unFavorite(game: GameModel) {
-        isGameUnsaved = false
-    }
-    
-    func findByIdGame(id: Int) -> Bool {
-        isGameFound = true
-        return isGameFound
+    func updateFavorite(game: GameModel) -> Observable<Bool> {
+        return Observable<Bool>.create { observer in
+            let games = self.isGameSaved
+            observer.onNext(games)
+          return Disposables.create()
+        }
     }
 }

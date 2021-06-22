@@ -33,19 +33,21 @@ final class GameMapper {
        
       static func mapGameEntitiesToDomains(input gameEntities: [GameEntity]) -> [GameModel] {
         return gameEntities.map { result in
-            return GameModel(id: Int(result.id ?? "0") ?? 0, backgroundImage: result.backgroundImage ?? "", name: result.name ?? "" , released: result.released ?? "", rating: result.rating ?? 0.0)
+            return GameModel(id: Int(result.id ?? "0") ?? 0, backgroundImage: result.backgroundImage ?? "", name: result.name ?? "" , released: result.released ?? "", rating: result.rating )
         }
       }
     
     static func mapGameDomainsToEntities(input gameModel: GameModel) -> GameEntity {
-
-        let newGame = GameEntity()
-        newGame.id = "\(String(describing: gameModel.id))"
-        newGame.backgroundImage = gameModel.backgroundImage 
-        newGame.name = gameModel.name 
-        newGame.released = gameModel.released 
-        newGame.rating = gameModel.rating 
-        return newGame
+        
+        let new = GameEntity()
+        new.id = "\(String(describing: gameModel.id))"
+        new.backgroundImage = gameModel.backgroundImage
+        new.name = gameModel.name
+        new.released = gameModel.released
+        new.rating = gameModel.rating
+        
+        return new
+        
     }
     
     static func mapGameDomainToResponse(input gameDomain: [GameModel]) -> [ResultGame] {

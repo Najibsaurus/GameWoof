@@ -17,10 +17,8 @@ protocol GameRepositoryProtocol {
     func getSearch(by name: String) -> Observable<[GameModel]>
     
     func getFavoriteList() -> Observable<[GameModel]>
-    func findByIdGame(id: Int) -> Bool
-    func favorite(game: GameModel)
-    func unFavorite(game: GameModel)
-    
+    func findByIdGame(id: Int) -> Observable<Bool>
+    func updateFavorite(game: GameModel) -> Observable<Bool>
 }
 
 
@@ -39,26 +37,16 @@ protocol GameRepositoryProtocol {
 }
 
 extension GameRepository : GameRepositoryProtocol {
-    func findByIdGame(id: Int) -> Bool {
+    func updateFavorite(game: GameModel) -> Observable<Bool> {
+        return local.updateFavorite(game: GameMapper.mapGameDomainsToEntities(input: game))
+    }
+    
+    func findByIdGame(id: Int) -> Observable<Bool> {
         return local.findByID(id: id)
     }
-    
+ 
     func getFavoriteList() -> Observable<[GameModel]> {
         return local.listGameData().map { GameMapper.mapGameEntitiesToDomains(input: $0)}
-    }
-    
-
-    
-    func favorite(game: GameModel) {
-        local.favorite(game: GameMapper.mapGameDomainsToEntities(input: game))
-    }
-    
-    func unFavorite(game: GameModel) {
-        local.unFavorite(game: GameMapper.mapGameDomainsToEntities(input: game))
-    }
-    
-    func unFavorite(game: GameEntity) {
-        local.unFavorite(game: game)
     }
     
     func getSearch(by name: String) -> Observable<[GameModel]> {

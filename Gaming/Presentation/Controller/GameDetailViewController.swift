@@ -33,7 +33,9 @@ class GameDetailViewController: UIViewController {
         super.viewDidLoad()
         viewModel = assembly.assembler.resolver.resolve(DetailViewModel.self)
         viewModel?.delegate = self
-    
+        viewModel?.findById(id: game!.id)
+        favoriteState = viewModel?.isFavorite ?? false
+        
         setupUI()
         viewModel?.showDetail(idGame: game?.id ?? 1)
         
@@ -44,16 +46,14 @@ class GameDetailViewController: UIViewController {
         let tapUnfavorite = UITapGestureRecognizer(target: self, action: #selector(unFavoriteGame))
         favoriteImageView.addGestureRecognizer(tapUnfavorite)
         
-        favoriteState = ((viewModel?.findById(id: game!.id)) != false)
-
-        
+    
     }
     
     
     @objc func unFavoriteGame() {
         if favoriteState == true {
-            viewModel?.unFavorite(game: game!)
-            favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
+            viewModel?.updateFavorite(game: game!)
+            favoriteState = viewModel?.isFavorite ?? false
             favoriteImageView.isHidden = !favoriteState
         }
     }
@@ -61,8 +61,8 @@ class GameDetailViewController: UIViewController {
     
     @objc func favoriteGame() {
         if favoriteState == false {
-            viewModel?.addToFavorite(game: game!)
-            favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
+            viewModel?.updateFavorite(game: game!)
+            favoriteState = viewModel?.isFavorite ?? false
             favoriteImageView.isHidden = !favoriteState
         }
     }
@@ -73,7 +73,6 @@ class GameDetailViewController: UIViewController {
     }
     
     func setupUI()  {
-        favoriteState = ((viewModel?.findById(id: game?.id ?? 1)) != false)
         favoriteImageView.isHidden = !favoriteState
         spinnerStart(state: true)
         let imageUrl = URL(string: game?.backgroundImage ?? GameViewModelStatic.dummyImage)
@@ -112,7 +111,6 @@ func setHTMLFromString(htmlText: String) -> NSAttributedString {
 extension GameDetailViewController: DetailViewModelDelegate {
     func completedFetchDetailGame(game: DetailModel?) {
         spinnerStart(state: false)
-    
         gameDescription.attributedText = setHTMLFromString(htmlText: game?.description ?? "")
     }
     

@@ -33,18 +33,14 @@ class DetailUseCaseTests: XCTestCase  {
     }
     
     func testFavoriteGameMethod(){
-        ins.favorite(game: gameDummy)
+        getExecuteUpdateFavorite(game: gameDummy)
         XCTAssertEqual(repositoryMock.isGameSaved, true)
     }
     
-    func testGameFoundMethod(){
-        repositoryMock.isGameFound = ins.findById(id: 1234)
-        XCTAssertEqual(repositoryMock.isGameFound, true)
-    }
-    
+
 
     func testUnfavoriteGameMethod(){
-        ins.unFavorite(game: gameDummy)
+        getExecuteUpdateFavorite(game: gameDummy)
         XCTAssertEqual(repositoryMock.isGameUnsaved, false)
     }
 
@@ -66,7 +62,12 @@ class DetailUseCaseTests: XCTestCase  {
     }
     
     
-    
+    private func getExecuteUpdateFavorite(game: GameModel?) {
+        ins.updateFavorite(game: game!).observe(on: MainScheduler.instance).subscribe { result in
+            self.repositoryMock.isGameSaved = !result
+            
+        }.disposed(by: disposeBag)
+    }
     
     private func getExecuteDetail(gamesIns: DetailModel?) -> (games: DetailModel?, error: Error?) {
         repositoryMock.fetchedDetail = gamesIns
@@ -85,6 +86,9 @@ class DetailUseCaseTests: XCTestCase  {
         }.disposed(by: disposeBag)
         return (games, error)
     }
+    
+    
+    
     
     override  func tearDown() {
         repositoryMock = nil

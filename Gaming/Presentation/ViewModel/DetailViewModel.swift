@@ -21,6 +21,7 @@ class DetailViewModel: NSObject {
     var detailData : DetailModel?
     private let disposeBag = RxSwift.DisposeBag()
     var delegate: DetailViewModelDelegate?
+    var isFavorite : Bool?
 
     init(detailUseCase: DetailUseCase) {
         self.detailUseCase = detailUseCase
@@ -36,16 +37,19 @@ class DetailViewModel: NSObject {
          }.disposed(by: disposeBag)
     }
     
-    func addToFavorite(game: GameModel)  {
-        detailUseCase.favorite(game: game)
+
+    
+    func findById(id: Int) {
+        detailUseCase.findById(id: id).observe(on: MainScheduler.instance).subscribe { result in
+            self.isFavorite = result
+        }.disposed(by: disposeBag)
     }
     
-    func findById(id: Int) -> Bool {
-        return detailUseCase.findById(id: id)
-    }
-    
-    func unFavorite(game: GameModel)  {
-        detailUseCase.unFavorite(game: game)
+    func updateFavorite(game: GameModel) {
+        detailUseCase.updateFavorite(game: game).observe(on: MainScheduler.instance).subscribe { result in
+            self.isFavorite = !result
+            
+        }.disposed(by: disposeBag)
     }
     
     

@@ -11,9 +11,8 @@ import RxSwift
 
 protocol DetailUseCase {
     func getDetail(by id: String) -> Observable<DetailModel>
-    func favorite(game: GameModel)
-    func unFavorite(game: GameModel)
-    func findById(id: Int) -> Bool
+    func findById(id: Int) -> Observable<Bool>
+    func updateFavorite(game: GameModel) -> Observable<Bool>
 }
 
 class DetailInteractor: DetailUseCase {
@@ -27,17 +26,12 @@ class DetailInteractor: DetailUseCase {
         return repository.getDetail(by: id)
     }
     
-    func favorite(game: GameModel) {
-        repository.favorite(game: game)
+    func updateFavorite(game: GameModel) -> Observable<Bool> {
+        return repository.updateFavorite(game: game)
     }
     
-    func unFavorite(game: GameModel) {
-        repository.unFavorite(game: game)
+    func findById(id: Int) -> Observable<Bool> {
+        return repository.findByIdGame(id: id)
     }
-    
-    func findById(id: Int) -> Bool {
-        repository.findByIdGame(id: id)
-    }
-    
     
 }

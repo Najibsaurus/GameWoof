@@ -15,7 +15,7 @@ import RealmSwift
     dynamic var backgroundImage: String?
     dynamic var name: String?
     dynamic var released: String?
-    dynamic var rating: Double?
+    dynamic var rating: Double = 0.0
 
     override class func primaryKey() -> String? {
         return "id"
