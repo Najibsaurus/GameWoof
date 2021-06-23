@@ -12,10 +12,6 @@ import RxSwift
 
 class GameRepositoryMock: GameRepositoryProtocol {
     
-
-    
-
-    
     var isGameSaved = false
     var isGameUnsaved = false
     var isGameFound = false

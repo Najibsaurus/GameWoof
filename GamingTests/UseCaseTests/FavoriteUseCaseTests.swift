@@ -68,8 +68,4 @@ class FavoriteUseCaseTests: XCTestCase {
     }
     
     
-    
-    
-    
-    
 }

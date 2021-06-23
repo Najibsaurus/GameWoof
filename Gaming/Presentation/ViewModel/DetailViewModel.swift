@@ -37,8 +37,6 @@ class DetailViewModel: NSObject {
          }.disposed(by: disposeBag)
     }
     
-
-    
     func findById(id: Int) {
         detailUseCase.findById(id: id).observe(on: MainScheduler.instance).subscribe { result in
             self.isFavorite = result

@@ -10,8 +10,6 @@ import RealmSwift
 import RxSwift
 
 protocol GameStorageProtocol {
-    func favorite(game: GameEntity)
-    func unFavorite(game: GameEntity)
     func listGameData() -> Observable<[GameEntity]>
     func findByID(id: Int) -> Observable<Bool>
     func updateFavorite(game: GameEntity) -> Observable<Bool>
@@ -91,37 +89,7 @@ extension GameStorageDataSource: GameStorageProtocol {
         }
     }
     
-    func favorite(game: GameEntity) {
-        if let realm = self.realm {
-          do {
-            try realm.write {
-                realm.create(GameEntity.self, value: game, update: .all)
-            }
-          } catch {
-            print(DatabaseError.requestFailed)
-          }
-        } else {
-          print(DatabaseError.invalidInstance)
-        }
-    }
-    
-    func unFavorite(game: GameEntity) {
-        guard let item = self.realm?.object(ofType: GameEntity.self, forPrimaryKey: game.id) else {
-            return
-        }
-        
-        if let realm = self.realm {
-          do {
-            try realm.write {
-                realm.delete(item)
-            }
-          } catch {
-            print(DatabaseError.requestFailed)
-          }
-        } else {
-          print(DatabaseError.invalidInstance)
-        }
-    }
+
     
 }
 
