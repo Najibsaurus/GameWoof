@@ -8,22 +8,34 @@
 
 import RealmSwift
 import Swinject
+import Game
+import Core
+import Favorite
+
 
 class DetailViewModelAssembly: Assembly {
+    
+    private let _gameMapper :DetailGamingMapper
+    private let _network : NetworkServices
+    private let _realm : Realm
+    
+    
+    init(realm:Realm, gameNetwork: NetworkServices, mapper: DetailGamingMapper) {
+        _realm = realm
+        _gameMapper = mapper
+        _network = gameNetwork
+    }
+    
+    
+    
     func assemble(container: Container) {
-        
-        container.register(GameRepository.self) { _ in
-            let realm = try? Realm()
-            let local = GameStorageDataSource(realm: realm)
-            let network = NetworkService(url: URL(string: Endpoints.Gets.games.url))
-            let remote = RemoteDataSource(network: network)
-            return GameRepository(local: local, remote: remote)
-        }
-        
-        container.register(DetailViewModel.self) { resolver in
-            let repository = resolver.resolve(GameRepository.self)!
-            let detailUseCase = DetailInteractor(repository: repository)
-            return DetailViewModel(detailUseCase: detailUseCase )
+        container.register(DetailViewModel.self) { _ in
+            let local = UpdateFavoriteLocalDataSource(realm: self._realm)
+            let remote = DetailGameRemoteDataSource(network: self._network)
+            let detailMapper = DetailGamingMapper()
+            let repository = DetailGamingRepository(localDataSource: local, remoteDataSource: remote, gamingMapper: detailMapper)
+            let detailUseCase = Interactor(repository: repository)
+            return DetailViewModel(interactor: detailUseCase )
         }
         
     }

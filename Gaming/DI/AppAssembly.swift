@@ -7,6 +7,10 @@
 //
 
 import Swinject
+import Game
+import Core
+import Favorite
+import RealmSwift
 
 class AppAssembly {
     
@@ -14,9 +18,16 @@ class AppAssembly {
     let assembler: Assembler
     
     init() {
-        assembler = Assembler([
-        GameViewModelAssembly(), DetailViewModelAssembly(), FavoriteViewModelAssembly()],
-        container: container)
+        
+        let realm = try? Realm()
+        let network = NetworkServices(url: URL(string: Endpoints.Gets.games.url))
+        let gameMapper = GamingMapper()
+        let detailMapper = DetailGamingMapper()
+        
+        assembler = Assembler([GameViewModelAssembly(gameNetwork: network, mapper: gameMapper),
+                               DetailViewModelAssembly(realm: realm!, gameNetwork: network, mapper: detailMapper),
+                               FavoriteViewModelAssembly(realm: realm!, mapper: gameMapper)],container: container)
+            
         
     }
     

@@ -8,6 +8,8 @@
 
 import UIKit
 import Bond
+import Game
+import Core
 
 class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
 
@@ -19,7 +21,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, Alerta {
     private let assembly = AppAssembly()
 
     
-    var gameList = [GameModel]()
+    var gameList = [GamingModel]()
     var viewModel : GameViewModel?
     
     
@@ -114,8 +116,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension SearchViewController: GameViewModelDelegate {
-    func completedFetchGame(gamesList: [GameModel]?) {
-        self.gameList = gamesList ?? [GameModel]()
+    func completedFetchGame(gamesList: [GamingModel]?) {
+        self.gameList = gamesList ?? [GamingModel]()
         spinnerStart(state: false)
         if self.gameList.isEmpty {
             showError(text: "Try search another one")

@@ -9,26 +9,32 @@
 import Foundation
 import RxSwift
 
+import Core
+import Favorite
+import Game
 
 class FavoriteViewModel : NSObject {
  
-    let favoriteUseCase : FavoriteUseCase
-    var delegate: FavoriteViewModelDelegate?
-    var gameList = [GameModel]()
-    private let disposeBag = RxSwift.DisposeBag()
+    private var favoriteUseCase : Interactor<Any, [GamingModel], FavoriteRepository<FavoriteLocalDataSource,GamingMapper>>
     
-    init(favoriteUseCase: FavoriteUseCase) {
-        self.favoriteUseCase = favoriteUseCase
+    var delegate: FavoriteViewModelDelegate?
+    var gameList = [GamingModel]()
+    private let disposeBag = RxSwift.DisposeBag()
+
+    init(interactor: Interactor<Any, [GamingModel], FavoriteRepository<FavoriteLocalDataSource,GamingMapper>>) {
+        self.favoriteUseCase = interactor
     }
+
     
     func fetchData(){
-        favoriteUseCase.getFavoriteList().observe(on: MainScheduler.instance).subscribe { result in
+        favoriteUseCase.execute(request: (Any).self).observe(on: MainScheduler.instance).subscribe { result in
             self.gameList = result
         } onError: { error in
             self.delegate?.errorData(error: error)
         } onCompleted: {
             self.delegate?.completedFetchFavorite(gamesList: self.gameList)
         }.disposed(by: disposeBag)
+    
 
     }
 }
@@ -36,5 +42,5 @@ class FavoriteViewModel : NSObject {
  
 protocol FavoriteViewModelDelegate {
     func errorData(error: Error)
-    func completedFetchFavorite(gamesList: [GameModel]?)
+    func completedFetchFavorite(gamesList: [GamingModel]?)
 }

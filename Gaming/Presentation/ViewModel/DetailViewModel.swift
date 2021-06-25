@@ -8,47 +8,68 @@
 
 import Foundation
 import RxSwift
+import Core
+import Game
+import Favorite
+
 
 
 protocol DetailViewModelDelegate {
-    func completedFetchDetailGame(game: DetailModel?)
+    func completedFetchDetailGame(game: DetailGameModel?)
     func errorData(err: Error)
 }
 
 class DetailViewModel: NSObject {
     
-    private var detailUseCase : DetailUseCase
-    var detailData : DetailModel?
+    private var  detailUseCase : Interactor<Any, Any, DetailGamingRepository<UpdateFavoriteLocalDataSource,DetailGameRemoteDataSource,DetailGamingMapper>>
+    
+    
+    var detailData : DetailGameModel?
     private let disposeBag = RxSwift.DisposeBag()
     var delegate: DetailViewModelDelegate?
     var isFavorite : Bool?
 
-    init(detailUseCase: DetailUseCase) {
-        self.detailUseCase = detailUseCase
-    }
     
-    func showDetail(idGame: Int) {
-        detailUseCase.getDetail(by: "\(idGame)").observe(on: MainScheduler.instance).subscribe { result in
-             self.detailData = result
-         } onError: { error in
-             self.delegate?.errorData(err: error)
-         } onCompleted: {
-            self.delegate?.completedFetchDetailGame(game: self.detailData)
-         }.disposed(by: disposeBag)
+    init(interactor: Interactor<Any, Any, DetailGamingRepository<UpdateFavoriteLocalDataSource,DetailGameRemoteDataSource,DetailGamingMapper>>) {
+        self.detailUseCase = interactor
     }
-    
-    func findById(id: Int) {
-        detailUseCase.findById(id: id).observe(on: MainScheduler.instance).subscribe { result in
-            self.isFavorite = result
-        }.disposed(by: disposeBag)
-    }
-    
-    func updateFavorite(game: GameModel) {
-        detailUseCase.updateFavorite(game: game).observe(on: MainScheduler.instance).subscribe { result in
-            self.isFavorite = !result
-            
+ 
+    func execute(url : String) {
+        
+        detailUseCase.execute(request: url).observe(on: MainScheduler.instance).subscribe { result in
+            switch result {
+            case .next(let game):
+                self.detailData = game as? DetailGameModel
+            case .error(let error):
+                self.delegate?.errorData(err: error)
+            case .completed:
+                self.delegate?.completedFetchDetailGame(game:self.detailData )
+            }
         }.disposed(by: disposeBag)
     }
     
     
+    func showDetail(idGame: String) {
+        
+        execute(url: "\(Endpoints.Gets.detail.url)\(idGame)\(API.apiKey)")
+    }
+    
+    func checkGame(game: String){
+        detailUseCase.execute(request: game).observe(on: MainScheduler.instance).subscribe { result in
+            self.isFavorite = result as? Bool
+        } onError: { error in
+            self.delegate?.errorData(err: error)
+        }.disposed(by: disposeBag)
+    }
+    
+    func updateFavorite(game: GamingModel) {
+        detailUseCase.execute(request: game).observe(on: MainScheduler.instance).subscribe { result in
+            let fav = result as? Bool
+            self.isFavorite = !fav!
+        } onError: { error in
+            self.delegate?.errorData(err: error)
+        }.disposed(by: disposeBag)
+    }
+    
+
 }

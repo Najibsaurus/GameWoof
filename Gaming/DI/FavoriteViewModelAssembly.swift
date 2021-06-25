@@ -9,21 +9,29 @@
 import Swinject
 import RealmSwift
 
+import Core
+import Favorite
+import Game
+
+
+
 class FavoriteViewModelAssembly: Assembly {
+  
+    private let _gameMapper :GamingMapper
+    private let _realm : Realm
+    
+    
+    init(realm:Realm, mapper: GamingMapper) {
+        _realm = realm
+        _gameMapper = mapper
+    }
+    
     func assemble(container: Container) {
-        
-        container.register(GameRepository.self) { _ in
-            let realm = try? Realm()
-            let local = GameStorageDataSource(realm: realm)
-            let network = NetworkService(url: URL(string: Endpoints.Gets.games.url))
-            let remote = RemoteDataSource(network: network)
-            return GameRepository(local: local, remote: remote)
-        }
-        
-        container.register(FavoriteViewModel.self) { resolver in
-            let repository = resolver.resolve(GameRepository.self)!
-            let favoriteUseCase = FavoriteInteractor(repository: repository)
-            return FavoriteViewModel(favoriteUseCase: favoriteUseCase )
+        container.register(FavoriteViewModel.self) { _  in
+            let local = FavoriteLocalDataSource(realm: self._realm)
+            let repository = FavoriteRepository(localdb: local, gamingMapper: self._gameMapper)
+            let detailUseCase = Interactor(repository: repository)
+            return FavoriteViewModel(interactor: detailUseCase )
         }
         
     }

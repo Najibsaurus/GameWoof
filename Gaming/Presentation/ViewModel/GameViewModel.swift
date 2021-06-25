@@ -8,10 +8,12 @@
 
 import Foundation
 import RxSwift
+import Core
+import Game
 
 
 protocol GameViewModelDelegate {
-    func completedFetchGame(gamesList: [GameModel]?)
+    func completedFetchGame(gamesList: [GamingModel]?)
     func errorData(err: Error)
 }
 
@@ -29,42 +31,39 @@ struct GameViewModelStatic {
 
 class GameViewModel : NSObject {
     
-
-    private var  gameUseCase : GameUseCase
-    var gameList = [GameModel]()
+    private var  gameUseCase : Interactor<String, [GamingModel], GamingRepository<GameRemoteDataSource,GamingMapper>>
+    var gameList = [GamingModel]()
     var detailData : DetailModel?
     private let disposeBag = RxSwift.DisposeBag()
     var delegate: GameViewModelDelegate?
     
     
-    init(gameUseCase: GameUseCase) {
-        self.gameUseCase = gameUseCase
+    init(interactor: Interactor<String, [GamingModel], GamingRepository<GameRemoteDataSource,GamingMapper>>) {
+        self.gameUseCase = interactor
     }
        
     
     func fetchDataGame() {
-        
-        gameUseCase.getRequest().observe(on: MainScheduler.instance).subscribe { result in
-            self.gameList = result
-        } onError: { error in
-            self.delegate?.errorData(err: error)
-        } onCompleted: {
-            self.delegate?.completedFetchGame(gamesList: self.gameList)
-        }.disposed(by: disposeBag)
-        
+        execute(url: Endpoints.Gets.games.url)
     }
     
 
     func searchGame(game: String){
-        gameUseCase.getSearch(by: game).observe(on: MainScheduler.instance).subscribe { result in
-               self.gameList = result
-           } onError: { error in
-               self.delegate?.errorData(err: error)
-           } onCompleted: {
-            self.delegate?.completedFetchGame(gamesList: self.gameList)
-           }.disposed(by: disposeBag)
-  
+        execute(url: "\(Endpoints.Gets.search.url)\(game)\(API.apiKey)")
     }
-        
+    
+    func execute(url : String) {
+        gameUseCase.execute(request: url).observe(on: MainScheduler.instance).subscribe { result in
+            
+            switch result {
+            case .next(let games):
+                self.gameList = games
+            case .error(let error):
+                self.delegate?.errorData(err: error)
+            case .completed:
+                self.delegate?.completedFetchGame(gamesList: self.gameList)
+            }
+        }.disposed(by: disposeBag)
+    }
     
 }

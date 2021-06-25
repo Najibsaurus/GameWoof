@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 final class GameMapper {
     
     static func mapGameResponsesToDomains( input gameResponses: [ResultGame]) -> [GameModel] {
@@ -15,9 +17,10 @@ final class GameMapper {
         return GameModel(id: result.id ?? 0, backgroundImage: result.backgroundImage ?? "", name: result.name ?? "", released: result.released ?? "", rating: result.rating ?? 0.0)
         }
     }
-
     
-   
+    
+    
+    
     static func mapGameResponsesToEntities( input gameResponses: [ResultGame]) -> [GameEntity] {
         return gameResponses.map { result in
           

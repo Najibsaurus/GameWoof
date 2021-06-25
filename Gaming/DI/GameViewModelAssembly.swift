@@ -8,22 +8,29 @@
 
 import RealmSwift
 import Swinject
+import Game
+import Core
+
+
 
 class GameViewModelAssembly: Assembly {
+    
+    private let _gameMapper :GamingMapper
+    private let _network : NetworkServices
+    
+    
+    init(gameNetwork: NetworkServices, mapper: GamingMapper) {
+        _gameMapper = mapper
+        _network = gameNetwork
+    }
+    
     func assemble(container: Container) {
         
-        container.register(GameRepository.self) { _ in
-            let realm = try? Realm()
-            let local = GameStorageDataSource(realm: realm)
-            let network = NetworkService(url: URL(string: Endpoints.Gets.games.url))
-            let remote = RemoteDataSource(network: network)
-            return GameRepository(local: local, remote: remote)
-        }
-        
-        container.register(GameViewModel.self) { resolver in
-            let repository = resolver.resolve(GameRepository.self)!
-            let gameUseCase = GameInteractor(repository: repository)
-            return GameViewModel(gameUseCase: gameUseCase )
+        container.register(GameViewModel.self) { _ in
+            let gameRemote = GameRemoteDataSource(network: self._network)
+            let repository = GamingRepository(remoteDataSource: gameRemote, gamingMapper: self._gameMapper)
+            let gameUseCase = Interactor(repository: repository)
+            return GameViewModel(interactor: gameUseCase)
         }
         
     }

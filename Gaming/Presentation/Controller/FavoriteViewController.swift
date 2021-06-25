@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Game
+import Core
 
 
 class FavoriteViewController: UIViewController, Alerta {
@@ -14,7 +16,7 @@ class FavoriteViewController: UIViewController, Alerta {
     @IBOutlet weak var tableView: UITableView!
   
     private let assembly = AppAssembly()
-    var gameList = [GameModel]()
+    var gameList = [GamingModel]()
     var viewModel : FavoriteViewModel?
     
 
@@ -68,6 +70,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         let game = self.gameList[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: GameViewModelStatic.cellGameIdentifier) as? GameTableViewCell
         cell?.setData(game)
+        
         return cell!
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -84,8 +87,9 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension FavoriteViewController: FavoriteViewModelDelegate {
-    func completedFetchFavorite(gamesList: [GameModel]?) {
-        self.gameList = gamesList ?? [GameModel]()
+  
+    func completedFetchFavorite(gamesList: [GamingModel]?) {
+        self.gameList = gamesList ?? [GamingModel]()
         tableView.reloadData()
     }
     

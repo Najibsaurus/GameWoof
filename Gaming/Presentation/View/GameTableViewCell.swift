@@ -8,6 +8,8 @@
 
 import UIKit
 import Kingfisher
+import Game
+import Core
 
 class GameTableViewCell: UITableViewCell {
 
@@ -16,7 +18,7 @@ class GameTableViewCell: UITableViewCell {
     @IBOutlet weak var releaseTitle: UILabel!
     @IBOutlet weak var ratingTitle: UILabel!
     
-    var game: GameModel?
+    var game: GamingModel?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +28,7 @@ class GameTableViewCell: UITableViewCell {
       
     }
 
-    func setData(_ game: GameModel)  {
+    func setData(_ game: GamingModel)  {
         
         self.game = game
         let imageUrl = URL(string: game.backgroundImage )

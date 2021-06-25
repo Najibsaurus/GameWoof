@@ -8,6 +8,9 @@
 
 import UIKit
 import Kingfisher
+import Game
+import Core
+
 
 class GameDetailViewController: UIViewController {
 
@@ -24,7 +27,7 @@ class GameDetailViewController: UIViewController {
 
     var gameDetail = DetailModel?.self
     var viewModel : DetailViewModel?
-    var game: GameModel?
+    var game: GamingModel?
 
     var favoriteState = false
     
@@ -33,11 +36,17 @@ class GameDetailViewController: UIViewController {
         super.viewDidLoad()
         viewModel = assembly.assembler.resolver.resolve(DetailViewModel.self)
         viewModel?.delegate = self
-        viewModel?.findById(id: game!.id)
-        favoriteState = viewModel?.isFavorite ?? false
         
+    
+        if let idGame = game?.id {
+            viewModel?.checkGame(game: "\(idGame)")
+            viewModel?.showDetail(idGame: "\(idGame)")
+        }
+        
+        favoriteState = viewModel?.isFavorite ?? false
         setupUI()
-        viewModel?.showDetail(idGame: game?.id ?? 1)
+        
+        
         
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(favoriteGame))
         doubleTap.numberOfTapsRequired = 2
@@ -52,21 +61,23 @@ class GameDetailViewController: UIViewController {
     
     @objc func unFavoriteGame() {
         if favoriteState == true {
-            viewModel?.updateFavorite(game: game!)
-            favoriteState = viewModel?.isFavorite ?? false
-            favoriteImageView.isHidden = !favoriteState
+            favoriteAction()
         }
     }
     
     
     @objc func favoriteGame() {
         if favoriteState == false {
-            viewModel?.updateFavorite(game: game!)
-            favoriteState = viewModel?.isFavorite ?? false
-            favoriteImageView.isHidden = !favoriteState
+            favoriteAction()
         }
     }
     
+    
+    func favoriteAction() {
+        viewModel?.updateFavorite(game: game!)
+        favoriteState = viewModel?.isFavorite ?? false
+        favoriteImageView.isHidden = !favoriteState
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 100)
@@ -109,7 +120,7 @@ func setHTMLFromString(htmlText: String) -> NSAttributedString {
 
 
 extension GameDetailViewController: DetailViewModelDelegate {
-    func completedFetchDetailGame(game: DetailModel?) {
+    func completedFetchDetailGame(game: DetailGameModel?) {
         spinnerStart(state: false)
         gameDescription.attributedText = setHTMLFromString(htmlText: game?.description ?? "")
     }
@@ -120,6 +131,6 @@ extension GameDetailViewController: DetailViewModelDelegate {
     }
     
     func completedFetchDetail() {
-    
+        
     }
 }

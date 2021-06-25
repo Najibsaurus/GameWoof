@@ -10,7 +10,7 @@ disabled_rules:
 - closing_brace
 - opening_brace
 - class_delegate_protocol
-
+- generic_type_name
 
 
 

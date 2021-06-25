@@ -9,6 +9,8 @@
 import UIKit
 import Kingfisher
 import Bond
+import Core
+import Game
 
 class GameListViewController: UIViewController, Alerta {
 
@@ -17,7 +19,7 @@ class GameListViewController: UIViewController, Alerta {
     private let assembly = AppAssembly()
 
     
-    var gameList = [GameModel]()
+    var gameList = [GamingModel]()
     var viewModel : GameViewModel?
     
     
@@ -99,8 +101,8 @@ extension GameListViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension GameListViewController: GameViewModelDelegate {
     
-    func completedFetchGame(gamesList: [GameModel]?) {
-        self.gameList = gamesList ?? [GameModel]()
+    func completedFetchGame(gamesList: [GamingModel]?) {
+        self.gameList = gamesList ?? [GamingModel]()
         self.spinnerStart(state: false)
         self.tableView.reloadData()
     }
