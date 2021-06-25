@@ -9,90 +9,83 @@
 @testable import Gaming
 import XCTest
 import RxSwift
+import Core
 
 
 class DetailUseCaseTests: XCTestCase  {
     
-    private var repositoryMock : GameRepositoryMock!
-    private var ins : DetailInteractor!
+    private var detailRepoMock : DetailGameRepositoryMock!
+    
+  
     var disposeBag: DisposeBag!
-    private var detailMock : DetailModel!
-    private var gameDummy : GameModel!
+    private var detailMock : DetailGameModel!
+    private var gameDummy : GamingModel!
     
     override func setUp() {
-        repositoryMock = GameRepositoryMock()
-        repositoryMock.fetchedGames = nil
-        ins = DetailInteractor(repository: repositoryMock)
+        detailRepoMock = DetailGameRepositoryMock()
         disposeBag = DisposeBag()
-        
-        gameDummy = GameModel(id: 1234,
+        gameDummy = GamingModel(id: 1234,
         backgroundImage: "https://media.rawg.io/media/screenshots/0bb/0bb7c4ac543768fd6c4dd849cc827310.jpeg",
         name: "Solomon's Keep", released: "2010-04-03", rating: 8.0)
-        
-        detailMock = DetailModel(id: 1234 , description: "FIFA 21 is a football simulation video game published by Electronic Arts as part of the FIFA series")
+    
+        detailMock = DetailGameModel(id: 1234 , description: "FIFA 21 is a football simulation video game published by Electronic Arts as part of the FIFA series")
     }
     
     func testFavoriteGameMethod(){
         getExecuteUpdateFavorite(game: gameDummy)
-        XCTAssertEqual(repositoryMock.isGameSaved, true)
+        XCTAssertEqual(detailRepoMock.isGameSaved, true)
     }
     
 
-
     func testUnfavoriteGameMethod(){
         getExecuteUpdateFavorite(game: gameDummy)
-        XCTAssertEqual(repositoryMock.isGameUnsaved, false)
+        XCTAssertEqual(detailRepoMock.isGameUnsaved, false)
     }
 
     
     func testCompletedHandlerDetailGameResultIsInvalidData() {
-        let result = getExecuteDetail(gamesIns: detailMock)
-        verifyExecute(result, expectedUsers: repositoryMock.fetchedDetail, isErrorExpected: false)
+        let result = execute(url: "\(Endpoints.Gets.detail.url)\(gameDummy.id)\(API.apiKey)", gamesIns: detailMock)
+        verifyExecute(result, expectedUsers: detailRepoMock.fetchedDetail, isErrorExpected: false)
     }
     
     func testCompletedHandlerDetailGameResultIsSuccess() {
-        let result = getExecuteDetail(gamesIns: nil)
+        let result = execute(url: "\(Endpoints.Gets.detail.url)\(gameDummy.id)\(API.apiKey)", gamesIns: nil)
         verifyExecute(result, expectedUsers: nil, isErrorExpected: true)
     }
     
     
-    private func verifyExecute(_ result: (games: DetailModel?, error: Error?), expectedUsers: DetailModel?, isErrorExpected: Bool) {
+    private func verifyExecute(_ result: (games: DetailGameModel?, error: Error?), expectedUsers: DetailGameModel?, isErrorExpected: Bool) {
         XCTAssertEqual(result.games, expectedUsers)
         XCTAssertEqual(result.error != nil, isErrorExpected)
     }
-    
-    
-    private func getExecuteUpdateFavorite(game: GameModel?) {
-        ins.updateFavorite(game: game!).observe(on: MainScheduler.instance).subscribe { result in
-            self.repositoryMock.isGameSaved = !result
-            
+        
+    private func getExecuteUpdateFavorite(game: GamingModel?) {
+        detailRepoMock?.execute(request: game!).observe(on: MainScheduler.instance).subscribe { result in
+            let fav = Converter.getBoolFromAny(paramAny: result)
+            self.detailRepoMock.isGameSaved = !fav
         }.disposed(by: disposeBag)
     }
-    
-    private func getExecuteDetail(gamesIns: DetailModel?) -> (games: DetailModel?, error: Error?) {
-        repositoryMock.fetchedDetail = gamesIns
-        var games: DetailModel?
+        
+    private func execute(url: String, gamesIns: DetailGameModel?)  -> (games: DetailGameModel?, error: Error?){
+        detailRepoMock.fetchedDetail = gamesIns
+        var games: DetailGameModel?
         var error: Error?
-        ins.getDetail(by: "1234").observe(on: MainScheduler.instance).subscribe{ result in
+        detailRepoMock?.execute(request: url).observe(on: MainScheduler.instance).subscribe { result in
             switch result {
             case .next(let game):
-                games = game
+                games = game as? DetailGameModel
             case .error(let err):
                 error = err
             case .completed:
-                games = self.repositoryMock.fetchedDetail
-
+                games = gamesIns
             }
         }.disposed(by: disposeBag)
         return (games, error)
     }
     
     
-    
-    
     override  func tearDown() {
-        repositoryMock = nil
-        ins = nil
+        detailRepoMock = nil
         disposeBag = nil
         detailMock = nil
         gameDummy = nil

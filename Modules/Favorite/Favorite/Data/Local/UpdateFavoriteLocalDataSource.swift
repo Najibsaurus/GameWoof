@@ -13,13 +13,9 @@ import RealmSwift
 
 public class UpdateFavoriteLocalDataSource: LocalDataSource {
   
-    
-
-  
     public typealias Request = Any
     public typealias Response = Any
     private let realm: Realm?
-    
     
     public init(realm: Realm?) {
         self.realm = realm

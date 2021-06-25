@@ -18,6 +18,8 @@
 		625C8E50267F30020006153F /* DetailUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625C8E4F267F30010006153F /* DetailUseCaseTests.swift */; };
 		62A15DF32680D28C00F77E65 /* GameRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A15DF22680D28B00F77E65 /* GameRepositoryMock.swift */; };
 		62A15DF52680D2A700F77E65 /* GameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A15DF42680D2A700F77E65 /* GameUseCaseTests.swift */; };
+		62DEDB112685DA4500673177 /* DetailGameRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DEDB102685DA4500673177 /* DetailGameRepositoryMock.swift */; };
+		62DEDB142685DB8400673177 /* FavoriteRepositoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DEDB132685DB8400673177 /* FavoriteRepositoryMock.swift */; };
 		62F81770266F721F00538817 /* GameStorageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F8176F266F721F00538817 /* GameStorageDataSource.swift */; };
 		62F81773266F73E200538817 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F81772266F73E200538817 /* GameEntity.swift */; };
 		62F81778266FA9E100538817 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62F81777266FA9E100538817 /* NetworkService.swift */; };
@@ -83,6 +85,8 @@
 		625C8E4F267F30010006153F /* DetailUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailUseCaseTests.swift; sourceTree = "<group>"; };
 		62A15DF22680D28B00F77E65 /* GameRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRepositoryMock.swift; sourceTree = "<group>"; };
 		62A15DF42680D2A700F77E65 /* GameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameUseCaseTests.swift; sourceTree = "<group>"; };
+		62DEDB102685DA4500673177 /* DetailGameRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailGameRepositoryMock.swift; sourceTree = "<group>"; };
+		62DEDB132685DB8400673177 /* FavoriteRepositoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepositoryMock.swift; sourceTree = "<group>"; };
 		62F8176F266F721F00538817 /* GameStorageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageDataSource.swift; sourceTree = "<group>"; };
 		62F81772266F73E200538817 /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
 		62F81777266FA9E100538817 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -163,12 +167,22 @@
 		625C8E48267EAC1A0006153F /* UseCaseTests */ = {
 			isa = PBXGroup;
 			children = (
+				62DEDB122685DB6800673177 /* RepositoryMock */,
 				625C8E4D267F27F90006153F /* FavoriteUseCaseTests.swift */,
 				625C8E4F267F30010006153F /* DetailUseCaseTests.swift */,
-				62A15DF22680D28B00F77E65 /* GameRepositoryMock.swift */,
 				62A15DF42680D2A700F77E65 /* GameUseCaseTests.swift */,
 			);
 			path = UseCaseTests;
+			sourceTree = "<group>";
+		};
+		62DEDB122685DB6800673177 /* RepositoryMock */ = {
+			isa = PBXGroup;
+			children = (
+				62A15DF22680D28B00F77E65 /* GameRepositoryMock.swift */,
+				62DEDB102685DA4500673177 /* DetailGameRepositoryMock.swift */,
+				62DEDB132685DB8400673177 /* FavoriteRepositoryMock.swift */,
+			);
+			path = RepositoryMock;
 			sourceTree = "<group>";
 		};
 		62F81768266F6C2300538817 /* Domain */ = {
@@ -621,6 +635,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				625C8E4E267F27F90006153F /* FavoriteUseCaseTests.swift in Sources */,
+				62DEDB142685DB8400673177 /* FavoriteRepositoryMock.swift in Sources */,
+				62DEDB112685DA4500673177 /* DetailGameRepositoryMock.swift in Sources */,
 				62A15DF32680D28C00F77E65 /* GameRepositoryMock.swift in Sources */,
 				625C8E50267F30020006153F /* DetailUseCaseTests.swift in Sources */,
 				62A15DF52680D2A700F77E65 /* GameUseCaseTests.swift in Sources */,

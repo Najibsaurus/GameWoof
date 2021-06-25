@@ -54,7 +54,6 @@ class GameViewModel : NSObject {
     
     func execute(url : String) {
         gameUseCase.execute(request: url).observe(on: MainScheduler.instance).subscribe { result in
-            
             switch result {
             case .next(let games):
                 self.gameList = games

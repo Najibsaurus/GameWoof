@@ -9,18 +9,42 @@
 @testable import Gaming
 import Foundation
 import RxSwift
+import Core
 
-class GameRepositoryMock: GameRepositoryProtocol {
+
+class GameRepositoryMock: GameRepositoryProtocol, Repository {
+    func getDetail(by id: String) -> Observable<DetailModel> {
+        fatalError()
+    }
+    
+ 
+    typealias Request = String
+    typealias Response = [GamingModel]
     
     var isGameSaved = false
     var isGameUnsaved = false
     var isGameFound = false
     var isGameNotFound = false
     var fetchedGames: [GameModel]?
-    var fetchedDetail : DetailModel?
+    var fetchedDetail : DetailGameModel?
+    var fetchedGaming : [GamingModel]?
+    
+
+    
+    func execute(request: String) -> Observable<[GamingModel]> {
+        return Observable<[GamingModel]>.create { observer in
+            guard let games = self.fetchedGaming else {
+                observer.onError(NSError.gettingError(withMessage: "Invalid URL"))
+                return Disposables.create()
+            }
+            observer.onNext(games)
+          return Disposables.create()
+        }
+    }
     
     
     func getRequest() -> Observable<[GameModel]> {
+        
         return Observable<[GameModel]>.create { observer in
             guard let games = self.fetchedGames else {
                 observer.onError(NSError.gettingError(withMessage: "Invalid URL"))
@@ -32,16 +56,6 @@ class GameRepositoryMock: GameRepositoryProtocol {
         
     }
     
-    func getDetail(by id: String) -> Observable<DetailModel> {
-        return Observable<DetailModel>.create { observer in
-            guard let games = self.fetchedDetail else {
-                observer.onError(NSError.gettingError(withMessage: "Invalid URL"))
-                return Disposables.create()
-            }
-            observer.onNext(games)
-          return Disposables.create()
-        }
-    }
     
     func getSearch(by name: String) -> Observable<[GameModel]> {
         return Observable<[GameModel]>.create { observer in

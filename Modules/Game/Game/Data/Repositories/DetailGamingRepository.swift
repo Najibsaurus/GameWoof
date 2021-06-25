@@ -29,15 +29,13 @@ where
     private let local: localDataSource
     private let mapper: DetailGamingMapper
     
-    
 
     public init(localDataSource: localDataSource ,remoteDataSource: RemoteDataSource, gamingMapper: DetailGamingMapper){
         remote = remoteDataSource
         mapper = gamingMapper
         local = localDataSource
     }
-        
-    
+            
     public func execute(request: Any) -> Observable<Any> {
         let url = GameUtility.unwrapAny(any: request)
         guard url is String else {

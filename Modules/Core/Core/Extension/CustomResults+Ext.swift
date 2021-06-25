@@ -13,4 +13,3 @@ public extension Results {
         return compactMap { $0 }
     }
 }
-
