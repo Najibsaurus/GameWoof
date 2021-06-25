@@ -17,12 +17,10 @@ class DetailGameRepositoryMock:  Repository {
     typealias Request = Any
     typealias Response = Any
     
-    
     var fetchedDetail : DetailGameModel?
     var isGameSaved = false
     var isGameUnsaved = false
 
-    
     func execute(request: Any) -> Observable<Any> {
         return Observable<Any>.create { observer in
             guard let games = self.fetchedDetail else {
