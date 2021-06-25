@@ -10,8 +10,6 @@ import Core
 
 
 public struct DetailGamingMapper : Mapper  {
-
-
     
     public typealias Request = GamingModel
     
@@ -20,7 +18,6 @@ public struct DetailGamingMapper : Mapper  {
     public typealias Entity = GamingEntity
     
     public typealias Domain = DetailGameModel
-    
     
     
     public init() {}

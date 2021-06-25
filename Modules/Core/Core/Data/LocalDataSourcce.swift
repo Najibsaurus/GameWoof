@@ -15,7 +15,5 @@ public protocol LocalDataSource {
     func listGameData() -> Observable<Response>
     func updateFavorite(game: Request) -> Observable<Response>
     func checkFavorite(game: Request) -> Observable<Response>
-    
-    
 
 }

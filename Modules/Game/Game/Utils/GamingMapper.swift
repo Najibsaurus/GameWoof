@@ -64,6 +64,4 @@ public struct GamingMapper : Mapper {
         fatalError()
     }
     
-    
-    
 }

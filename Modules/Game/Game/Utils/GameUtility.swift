@@ -8,7 +8,6 @@
 import Foundation
 
 public class GameUtility {
-    
     static func unwrapAny(any:Any) -> Any {
         let mi = Mirror(reflecting: any)
         if mi.displayStyle != .optional {
@@ -18,7 +17,4 @@ public class GameUtility {
         let (_, some) = mi.children.first!
         return some
     }
-    
- 
-    
 }

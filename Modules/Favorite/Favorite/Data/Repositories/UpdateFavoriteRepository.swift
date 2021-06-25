@@ -29,7 +29,5 @@ where
         return local.updateFavorite(game: request)
         
     }
-    
-
 
 }

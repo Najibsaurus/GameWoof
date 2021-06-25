@@ -32,6 +32,4 @@ where
         let getRequest = local.listGameData()
         return getRequest.map { mapper.transformEntityToDomain(entity: $0) }
     }
-
-
 }

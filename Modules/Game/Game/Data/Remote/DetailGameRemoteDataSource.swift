@@ -18,9 +18,9 @@ public struct DetailGameRemoteDataSource: DataSource  {
     
     private var networking : NetworkProtocol
       
-      public init(network: NetworkProtocol){
+    public init(network: NetworkProtocol){
           self.networking = network
-      }
+    }
       
     public func execute(request: String) -> Observable<DetailCallGaming> {
         self.networking.url = URL(string: "\(String(describing: request))")

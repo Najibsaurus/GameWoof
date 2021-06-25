@@ -33,7 +33,7 @@ class GameViewModel : NSObject {
     
     private var  gameUseCase : Interactor<String, [GamingModel], GamingRepository<GameRemoteDataSource,GamingMapper>>
     var gameList = [GamingModel]()
-    var detailData : DetailModel?
+    var detailData : DetailGameModel?
     private let disposeBag = RxSwift.DisposeBag()
     var delegate: GameViewModelDelegate?
     

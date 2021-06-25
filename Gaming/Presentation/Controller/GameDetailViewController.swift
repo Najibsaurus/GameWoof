@@ -25,7 +25,7 @@ class GameDetailViewController: UIViewController {
     
     private let assembly = AppAssembly()
 
-    var gameDetail = DetailModel?.self
+    var gameDetail = DetailGameModel?.self
     var viewModel : DetailViewModel?
     var game: GamingModel?
 

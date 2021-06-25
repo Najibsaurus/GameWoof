@@ -27,7 +27,6 @@ class DetailViewModelAssembly: Assembly {
     }
     
     
-    
     func assemble(container: Container) {
         container.register(DetailViewModel.self) { _ in
             let local = UpdateFavoriteLocalDataSource(realm: self._realm)

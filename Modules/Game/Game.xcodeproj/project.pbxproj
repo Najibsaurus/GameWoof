@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		620B451A2683C9AB00B1282D /* Game.h in Headers */ = {isa = PBXBuildFile; fileRef = 620B45182683C9AB00B1282D /* Game.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		620B45252683CA4E00B1282D /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 620B45242683CA4E00B1282D /* Core.framework */; };
 		620B45362683D39E00B1282D /* ResultGaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620B45352683D39E00B1282D /* ResultGaming.swift */; };
 		620B45382683D3AB00B1282D /* CallGaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620B45372683D3AB00B1282D /* CallGaming.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		5BC136F77A8C877DAFFA3141 /* Pods-Game.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Game.debug.xcconfig"; path = "Target Support Files/Pods-Game/Pods-Game.debug.xcconfig"; sourceTree = "<group>"; };
 		620B45152683C9AB00B1282D /* Game.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Game.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		620B45182683C9AB00B1282D /* Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		620B45192683C9AB00B1282D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		620B45242683CA4E00B1282D /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		620B45352683D39E00B1282D /* ResultGaming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultGaming.swift; sourceTree = "<group>"; };
@@ -105,9 +103,7 @@
 			children = (
 				620B45942685275F00B1282D /* Utils */,
 				620B454A2683EE2D00B1282D /* Network */,
-				620B45292683D08800B1282D /* Domain */,
 				620B45282683D08200B1282D /* Data */,
-				620B45182683C9AB00B1282D /* Game.h */,
 				620B45192683C9AB00B1282D /* Info.plist */,
 			);
 			path = Game;
@@ -120,13 +116,6 @@
 				620B45332683D32A00B1282D /* Remote */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		620B45292683D08800B1282D /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
 			sourceTree = "<group>";
 		};
 		620B45332683D32A00B1282D /* Remote */ = {
@@ -184,7 +173,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				620B451A2683C9AB00B1282D /* Game.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
